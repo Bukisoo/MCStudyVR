@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "McStudyVR.sln"
+    "dotnet.defaultSolution": "MCStudyVR.sln"
 }
