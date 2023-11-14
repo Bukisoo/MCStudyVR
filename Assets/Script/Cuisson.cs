@@ -13,10 +13,6 @@ public class Cuisson : MonoBehaviour
         if(other.gameObject.tag == "Grill"){
             CuissonViande = true;
         }
-        if(other.gameObject.tag == "Poubelle"){
-            Debug.Log("test");
-            Destroy(this.gameObject);
-        }
 }
 
     void OnTriggerExit(Collider other){
