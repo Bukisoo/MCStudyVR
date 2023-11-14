@@ -14,9 +14,11 @@ GameObject:
   - component: {fileID: 5886179513475350791}
   - component: {fileID: 5779244650924225161}
   - component: {fileID: 5054025978062838115}
+  - component: {fileID: 8550012675398313370}
   m_Layer: 0
   m_Name: Steak
   m_TagString: Untagged
+  m_TagString: Steak
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -287,3 +289,17 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &8550012675398313370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628820146795486736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57cad0da5c09f4d469192a2882b836e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MatCuit: {fileID: 2100000, guid: ce3a2b62af7ca814981959afaf6f00a1, type: 2}
+  MatCrame: {fileID: 2100000, guid: 7c9bf17f8a3b78f4091618532bd42541, type: 2}
