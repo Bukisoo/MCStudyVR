@@ -12,7 +12,11 @@ public class Cuisson : MonoBehaviour
     void OnTriggerEnter(Collider other){
         if(other.gameObject.tag == "Grill"){
             CuissonViande = true;
-    }
+        }
+        if(other.gameObject.tag == "Poubelle"){
+            Debug.Log("test");
+            Destroy(this.gameObject);
+        }
 }
 
     void OnTriggerExit(Collider other){
@@ -20,12 +24,6 @@ public class Cuisson : MonoBehaviour
             CuissonViande = false;
     }
 }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

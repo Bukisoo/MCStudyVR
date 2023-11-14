@@ -12,6 +12,11 @@ public class Spawner : MonoBehaviour
         StartCoroutine(SpawnPrefabs());
     }
 
+    void Update()
+    {
+    
+    }
+
     IEnumerator SpawnPrefabs()
     {
         for (int i = 0; i < numberOfInstances; i++)

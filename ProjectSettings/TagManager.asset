@@ -3,11 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
   tags:
-  - Anchor
-  - Steak
   - Grill
+  - Anchor
+  - Poubelle
   layers:
   - Default
   - TransparentFX
