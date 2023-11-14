@@ -7,6 +7,7 @@ public class Spawner : MonoBehaviour
     public GameObject prefabToSpawn;
     public int numberOfInstances;
     public float spawnDelay = 0.25f;
+    public float positionFuzziness = 0.00001f; // Adjust this value to set the range of randomness
     private List<GameObject> spawnedInstances;
 
     void Start()
@@ -35,7 +36,12 @@ public class Spawner : MonoBehaviour
 
     void SpawnPrefab()
     {
-        GameObject instance = Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
+        Vector3 randomOffset = new Vector3(
+            Random.Range(-positionFuzziness, positionFuzziness),
+            Random.Range(-positionFuzziness, positionFuzziness),
+            Random.Range(-positionFuzziness, positionFuzziness));
+
+        GameObject instance = Instantiate(prefabToSpawn, transform.position + randomOffset, Quaternion.identity);
         instance.transform.parent = this.transform;
         spawnedInstances.Add(instance);
     }
