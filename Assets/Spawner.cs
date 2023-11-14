@@ -17,7 +17,7 @@ public class Spawner : MonoBehaviour
         for (int i = 0; i < numberOfInstances; i++)
         {
             GameObject instance = Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
-            instance.transform.parent = this.transform;  // This sets the parent of the prefab instance
+            instance.transform.parent = this.transform;
 
             yield return new WaitForSeconds(spawnDelay);
         }
