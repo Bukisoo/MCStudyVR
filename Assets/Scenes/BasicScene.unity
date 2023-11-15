@@ -757,7 +757,7 @@ MonoBehaviour:
   m_AllowHoverHapticsWhileSelecting: 1
   m_LineType: 0
   m_BlendVisualLinePoints: 1
-  m_MaxRaycastDistance: 10
+  m_MaxRaycastDistance: 0.1
   m_RayOriginTransform: {fileID: 0}
   m_ReferenceFrame: {fileID: 0}
   m_Velocity: 16
@@ -3261,8 +3261,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 65bf50d509e94d1479929067e55508e8, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 121204859330779623, guid: c648a49c61a63ab4b980fb0e26b809a5, type: 3}
     m_RemovedGameObjects:
     - {fileID: 121204859330779623, guid: c648a49c61a63ab4b980fb0e26b809a5, type: 3}
     m_AddedGameObjects: []
@@ -5811,7 +5809,7 @@ MonoBehaviour:
   m_AllowHoverHapticsWhileSelecting: 1
   m_LineType: 0
   m_BlendVisualLinePoints: 1
-  m_MaxRaycastDistance: 10
+  m_MaxRaycastDistance: 0.1
   m_RayOriginTransform: {fileID: 0}
   m_ReferenceFrame: {fileID: 0}
   m_Velocity: 16
