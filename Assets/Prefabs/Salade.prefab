@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2647612560227134890}
   - component: {fileID: 3108547198261014909}
   - component: {fileID: 2451634584258060430}
-  - component: {fileID: -3181895269372221134}
   - component: {fileID: -2598282478525483073}
   - component: {fileID: -5305980500702709498}
+  - component: {fileID: -4494912891920582903}
   m_Layer: 0
   m_Name: Salade
   m_TagString: Ingredient
@@ -119,18 +119,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a42fb0a7d4035804b9a736738477649e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-3181895269372221134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8258694679823259633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eba9024ad46849e4a9b6fe55b4bfd94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!54 &-2598282478525483073
@@ -312,3 +300,15 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &-4494912891920582903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8258694679823259633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31fe3ccb3ecb4aa4ea07d86456762bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

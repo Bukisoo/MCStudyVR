@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5756963584332896469}
   - component: {fileID: 6997981093352574991}
   - component: {fileID: 494385364486037741}
-  - component: {fileID: 8247071244680423894}
   - component: {fileID: 535029243501309079}
   - component: {fileID: 1020966931278615489}
+  - component: {fileID: -8130111317809008736}
   m_Layer: 0
   m_Name: Tomate
   m_TagString: Ingredient
@@ -121,18 +121,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a42fb0a7d4035804b9a736738477649e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8247071244680423894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8544286536695093776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eba9024ad46849e4a9b6fe55b4bfd94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!54 &535029243501309079
@@ -314,3 +302,15 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
+--- !u!114 &-8130111317809008736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544286536695093776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31fe3ccb3ecb4aa4ea07d86456762bea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
