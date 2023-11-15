@@ -8,47 +8,58 @@ public class Spawner : MonoBehaviour
     public int numberOfInstances;
     public float spawnDelay = 0.25f;
     public float positionFuzziness = 0.00001f; // Adjust this value to set the range of randomness
-    private List<GameObject> spawnedParents; // List to keep track of the spawned parents
+    private List<GameObject> spawnedObjects; // List to keep track of the spawned objects or parents
 
     void Start()
     {
-        spawnedParents = new List<GameObject>();
+        spawnedObjects = new List<GameObject>();
         StartCoroutine(SpawnPrefabs());
     }
 
     void Update()
     {
-        // Check and spawn prefabs if any are missing in each parent
-        foreach (var parent in spawnedParents)
+        // Check and spawn prefabs if any are missing
+        foreach (var obj in spawnedObjects)
         {
-            if (parent != null)
+            if (obj != null)
             {
-                MaintainPrefabCount(parent);
+                if (prefabToSpawn.CompareTag("BottomBun"))
+                {
+                    MaintainPrefabCount(obj);
+                }
+                else if (!prefabToSpawn.CompareTag("BottomBun"))
+                {
+                    MaintainPrefabCount(this.gameObject);
+                }
             }
         }
     }
 
     IEnumerator SpawnPrefabs()
     {
-        for (int i = 0; i < numberOfInstances; i++)
+        if (prefabToSpawn.CompareTag("BottomBun"))
         {
-            GameObject newParent = new GameObject("BottomBunParent");
-            newParent.transform.position = transform.position;
-            spawnedParents.Add(newParent);
-            yield return StartCoroutine(SpawnPrefabsInParent(newParent));
+            // Spawn BottomBun prefabs with a parent
+            for (int i = 0; i < numberOfInstances; i++)
+            {
+                GameObject newParent = new GameObject("BottomBunParent");
+                newParent.tag = "BottomBunParent"; // Tag the parent for identification
+                newParent.transform.position = transform.position;
+                spawnedObjects.Add(newParent);
+                yield return StartCoroutine(SpawnPrefab(newParent));
+            }
+        }
+        else
+        {
+            // Spawn other prefabs directly
+            for (int i = 0; i < numberOfInstances; i++)
+            {
+                yield return StartCoroutine(SpawnPrefab(this.gameObject));
+            }
         }
     }
 
-    IEnumerator SpawnPrefabsInParent(GameObject parent)
-    {
-        for (int i = 0; i < numberOfInstances; i++)
-        {
-            SpawnPrefab(parent);
-            yield return new WaitForSeconds(spawnDelay);
-        }
-    }
-
-    void SpawnPrefab(GameObject parent)
+    IEnumerator SpawnPrefab(GameObject parent)
     {
         Vector3 randomOffset = new Vector3(
             Random.Range(-positionFuzziness, positionFuzziness),
@@ -56,32 +67,16 @@ public class Spawner : MonoBehaviour
             Random.Range(-positionFuzziness, positionFuzziness));
 
         GameObject instance = Instantiate(prefabToSpawn, parent.transform.position + randomOffset, Quaternion.identity);
-        if (prefabToSpawn.CompareTag("BottomBun"))
-        {
-            // Create a new child GameObject for the bottom bun
-            GameObject bottomBunChild = new GameObject("BottomBunChild");
-            bottomBunChild.transform.parent = parent.transform;
-            bottomBunChild.transform.position = instance.transform.position;
-            instance.transform.parent = bottomBunChild.transform;
-        }
-        else
-        {
-            instance.transform.parent = parent.transform;
-        }
+        instance.transform.parent = parent.transform;
+        yield return new WaitForSeconds(spawnDelay);
     }
 
     void MaintainPrefabCount(GameObject parent)
     {
-        int totalCount = 0;
-        foreach (Transform child in parent.transform)
+        int childCount = parent.transform.childCount;
+        for (int i = childCount; i < numberOfInstances; i++)
         {
-            totalCount += child.childCount;
-        }
-
-        int missingCount = numberOfInstances - totalCount;
-        for (int i = 0; i < missingCount; i++)
-        {
-            SpawnPrefab(parent);
+            StartCoroutine(SpawnPrefab(parent));
         }
     }
 
