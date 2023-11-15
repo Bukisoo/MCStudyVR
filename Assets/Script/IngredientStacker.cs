@@ -1,37 +1,39 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit; // Make sure this namespace is included to access XRGrabInteractable
 
 public class IngredientStacker : MonoBehaviour
 {
-    private static Vector3 lastStackPosition;
+    private static float nextIngredientHeight = 0.1f; // Initial offset, adjust as needed
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Check if the colliding object has the "BottomBun" tag
         if (collision.gameObject.CompareTag("BottomBun"))
         {
-            // Get the parent of the bottom bun
             Transform parentObject = collision.transform.parent;
-
-            // Set the ingredient's parent to be the bottom bun's parent
             transform.SetParent(parentObject);
 
-            // If this is the first ingredient, initialize the lastStackPosition
-            if (lastStackPosition == Vector3.zero)
-            {
-                lastStackPosition = collision.transform.position;
-            }
+            Vector3 newPosition = new Vector3(collision.transform.position.x, collision.transform.position.y + nextIngredientHeight, collision.transform.position.z);
+            transform.position = newPosition;
+            nextIngredientHeight += 0.1f; // adjust this for ingredient height
 
-            // Adjust position - stack the ingredient slightly above the last stacked ingredient
-            transform.position = lastStackPosition + new Vector3(0, 0.1f, 0); // adjust 0.1f if needed for correct offset
-
-            // Update the lastStackPosition
-            lastStackPosition = transform.position;
-
-            // Fully constrain the Rigidbody
             Rigidbody rb = GetComponent<Rigidbody>();
             if (rb != null)
             {
                 rb.constraints = RigidbodyConstraints.FreezeAll;
+            }
+
+            // Remove XRGrabInteractable from the ingredient
+            XRGrabInteractable grabInteractable = GetComponent<XRGrabInteractable>();
+            if (grabInteractable != null)
+            {
+                Destroy(grabInteractable);
+            }
+
+            // Add XRGrabInteractable to the parent if it doesn't already have one
+            XRGrabInteractable parentGrabInteractable = parentObject.GetComponent<XRGrabInteractable>();
+            if (parentGrabInteractable == null)
+            {
+                parentObject.gameObject.AddComponent<XRGrabInteractable>();
             }
         }
     }
