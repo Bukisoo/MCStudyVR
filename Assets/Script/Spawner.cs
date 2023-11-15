@@ -41,8 +41,22 @@ public class Spawner : MonoBehaviour
             Random.Range(-positionFuzziness, positionFuzziness),
             Random.Range(-positionFuzziness, positionFuzziness));
 
-        GameObject instance = Instantiate(prefabToSpawn, transform.position + randomOffset, Quaternion.identity);
-        instance.transform.parent = this.transform;
+        GameObject instance;
+
+        if (prefabToSpawn.CompareTag("BottomBun"))
+        {
+            // Create a new empty GameObject as the parent for BottomBun
+            GameObject newParent = new GameObject("BottomBunParent");
+            newParent.transform.position = transform.position + randomOffset;
+            instance = Instantiate(prefabToSpawn, newParent.transform.position, Quaternion.identity);
+            instance.transform.parent = newParent.transform;
+        }
+        else
+        {
+            // Directly spawn other ingredients without a parent
+            instance = Instantiate(prefabToSpawn, transform.position + randomOffset, Quaternion.identity);
+        }
+
         spawnedInstances.Add(instance);
     }
 
