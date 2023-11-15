@@ -8,6 +8,7 @@ TagManager:
   - Anchor
   - Poubelle
   - Ingredient
+  - BottomBum
   layers:
   - Default
   - TransparentFX
