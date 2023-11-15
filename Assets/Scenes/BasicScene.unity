@@ -257,7 +257,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 514554659}
   - {fileID: 353233853}
   - {fileID: 1043156609}
   - {fileID: 1282534325}
@@ -269,6 +268,8 @@ Transform:
   - {fileID: 1210748264}
   - {fileID: 817184631}
   - {fileID: 259519978}
+  - {fileID: 214076551}
+  - {fileID: 514554659}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &104015825
@@ -849,7 +850,7 @@ GameObject:
   - component: {fileID: 214076551}
   - component: {fileID: 214076550}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: bipMcdo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -959,12 +960,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 214076549}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.263, y: 1.7978184, z: -4.323}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 32337911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &216031200
 GameObject:
@@ -6639,6 +6640,26 @@ PrefabInstance:
       propertyPath: m_AttachTransform
       value: 
       objectReference: {fileID: 6814293979728634144, guid: 82411c0b114ff8f419972e9d1fca7c3c, type: 3}
+    - target: {fileID: 1989791590925419517, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_InteractionManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2607312474088619353, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_MaxRaycastDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2853412522427425234, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_MaxRaycastDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871854915827847850, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 2077999375}
+    - target: {fileID: 2871854917430088266, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 387311742}
     - target: {fileID: 4207009129679955940, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AttachTransform
       value: 
@@ -7257,4 +7278,3 @@ SceneRoots:
   - {fileID: 1794474226}
   - {fileID: 1511081204}
   - {fileID: 514554658}
-  - {fileID: 214076551}
