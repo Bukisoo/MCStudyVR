@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18306622, g: 0.2287434, b: 0.30669293, a: 1}
+  m_IndirectSpecularColor: {r: 0.18306595, g: 0.2287429, b: 0.3066922, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -635,7 +635,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154615528}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e988983f96fe1dd48800bcdfc82f23e9, type: 3}
   m_Name: 
@@ -784,7 +784,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154615528}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -979,7 +979,7 @@ MonoBehaviour:
   m_ControlPointDistance: 10
   m_ControlPointHeight: 5
   m_SampleFrequency: 20
-  m_HitDetectionType: 0
+  m_HitDetectionType: 1
   m_SphereCastRadius: 0.1
   m_ConeCastAngle: 6
   m_RaycastMask:
@@ -987,7 +987,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
   m_RaycastSnapVolumeInteraction: 1
-  m_HitClosestOnly: 0
+  m_HitClosestOnly: 1
   m_HoverToSelect: 0
   m_HoverTimeToSelect: 0.5
   m_AutoDeselect: 0
@@ -3723,7 +3723,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 65bf50d509e94d1479929067e55508e8, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 121204859330779623, guid: c648a49c61a63ab4b980fb0e26b809a5, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c648a49c61a63ab4b980fb0e26b809a5, type: 3}
@@ -4935,7 +4936,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 65bf50d509e94d1479929067e55508e8, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 121204859330779623, guid: c648a49c61a63ab4b980fb0e26b809a5, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c648a49c61a63ab4b980fb0e26b809a5, type: 3}
@@ -6042,7 +6044,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1663327007}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e988983f96fe1dd48800bcdfc82f23e9, type: 3}
   m_Name: 
@@ -6191,7 +6193,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1663327007}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -6386,7 +6388,7 @@ MonoBehaviour:
   m_ControlPointDistance: 10
   m_ControlPointHeight: 5
   m_SampleFrequency: 20
-  m_HitDetectionType: 0
+  m_HitDetectionType: 1
   m_SphereCastRadius: 0.1
   m_ConeCastAngle: 6
   m_RaycastMask:
@@ -6394,7 +6396,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
   m_RaycastSnapVolumeInteraction: 1
-  m_HitClosestOnly: 0
+  m_HitClosestOnly: 1
   m_HoverToSelect: 0
   m_HoverTimeToSelect: 0.5
   m_AutoDeselect: 0
@@ -7959,15 +7961,5 @@ SceneRoots:
   - {fileID: 933098603}
   - {fileID: 1794474226}
   - {fileID: 1511081204}
-  - {fileID: 63556243}
-  - {fileID: 2018228470}
-  - {fileID: 1333728295}
-  - {fileID: 151589088}
-  - {fileID: 2093200666}
-  - {fileID: 756046406}
-  - {fileID: 579148279}
-  - {fileID: 2018618827}
-  - {fileID: 1699125410}
-  - {fileID: 913780144}
   - {fileID: 1282534324}
   - {fileID: 1043156608}
