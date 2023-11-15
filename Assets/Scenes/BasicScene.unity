@@ -6623,6 +6623,14 @@ PrefabInstance:
       propertyPath: m_MaxRaycastDistance
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 2871854915827847850, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 2077999375}
+    - target: {fileID: 2871854917430088266, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 387311742}
     - target: {fileID: 4207009129679955940, guid: 65eb6b98091a5734ba9d9ca871cef69a, type: 3}
       propertyPath: m_AttachTransform
       value: 
