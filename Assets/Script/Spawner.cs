@@ -8,65 +8,80 @@ public class Spawner : MonoBehaviour
     public int numberOfInstances;
     public float spawnDelay = 0.25f;
     public float positionFuzziness = 0.00001f; // Adjust this value to set the range of randomness
-    private List<GameObject> spawnedInstances;
+    private List<GameObject> spawnedParents; // List to keep track of the spawned parents
 
     void Start()
     {
-        spawnedInstances = new List<GameObject>();
+        spawnedParents = new List<GameObject>();
         StartCoroutine(SpawnPrefabs());
     }
 
     void Update()
     {
-        // Check and spawn prefabs if any are missing
-        MaintainPrefabCount();
+        // Check and spawn prefabs if any are missing in each parent
+        foreach (var parent in spawnedParents)
+        {
+            if (parent != null)
+            {
+                MaintainPrefabCount(parent);
+            }
+        }
     }
 
     IEnumerator SpawnPrefabs()
     {
         for (int i = 0; i < numberOfInstances; i++)
         {
-            if (spawnedInstances.Count < numberOfInstances)
-            {
-                SpawnPrefab();
-                yield return new WaitForSeconds(spawnDelay);
-            }
+            GameObject newParent = new GameObject("BottomBunParent");
+            newParent.transform.position = transform.position;
+            spawnedParents.Add(newParent);
+            yield return StartCoroutine(SpawnPrefabsInParent(newParent));
         }
     }
 
-    void SpawnPrefab()
+    IEnumerator SpawnPrefabsInParent(GameObject parent)
+    {
+        for (int i = 0; i < numberOfInstances; i++)
+        {
+            SpawnPrefab(parent);
+            yield return new WaitForSeconds(spawnDelay);
+        }
+    }
+
+    void SpawnPrefab(GameObject parent)
     {
         Vector3 randomOffset = new Vector3(
             Random.Range(-positionFuzziness, positionFuzziness),
             Random.Range(-positionFuzziness, positionFuzziness),
             Random.Range(-positionFuzziness, positionFuzziness));
 
-        GameObject instance;
-
+        GameObject instance = Instantiate(prefabToSpawn, parent.transform.position + randomOffset, Quaternion.identity);
         if (prefabToSpawn.CompareTag("BottomBun"))
         {
-            // Create a new empty GameObject as the parent for BottomBun
-            GameObject newParent = new GameObject("BottomBunParent");
-            newParent.transform.position = transform.position + randomOffset;
-            instance = Instantiate(prefabToSpawn, newParent.transform.position, Quaternion.identity);
-            instance.transform.parent = newParent.transform;
+            // Create a new child GameObject for the bottom bun
+            GameObject bottomBunChild = new GameObject("BottomBunChild");
+            bottomBunChild.transform.parent = parent.transform;
+            bottomBunChild.transform.position = instance.transform.position;
+            instance.transform.parent = bottomBunChild.transform;
         }
         else
         {
-            // Directly spawn other ingredients without a parent
-            instance = Instantiate(prefabToSpawn, transform.position + randomOffset, Quaternion.identity);
+            instance.transform.parent = parent.transform;
         }
-
-        spawnedInstances.Add(instance);
     }
 
-    void MaintainPrefabCount()
+    void MaintainPrefabCount(GameObject parent)
     {
-        spawnedInstances.RemoveAll(item => item == null);
-
-        while (spawnedInstances.Count < numberOfInstances)
+        int totalCount = 0;
+        foreach (Transform child in parent.transform)
         {
-            SpawnPrefab();
+            totalCount += child.childCount;
+        }
+
+        int missingCount = numberOfInstances - totalCount;
+        for (int i = 0; i < missingCount; i++)
+        {
+            SpawnPrefab(parent);
         }
     }
 

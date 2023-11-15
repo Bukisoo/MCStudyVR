@@ -14,9 +14,11 @@ GameObject:
   - component: {fileID: 5779244650924225161}
   - component: {fileID: 5054025978062838115}
   - component: {fileID: 8550012675398313370}
-  - component: {fileID: -7813160416669961783}
   - component: {fileID: -8948575943560845835}
   - component: {fileID: 9080893841053946632}
+  - component: {fileID: -4332039367753084400}
+  - component: {fileID: 8277684557299568674}
+  - component: {fileID: -5995026845733746556}
   m_Layer: 0
   m_Name: Steak
   m_TagString: Ingredient
@@ -282,27 +284,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MatCuit: {fileID: 2100000, guid: ce3a2b62af7ca814981959afaf6f00a1, type: 2}
   MatCrame: {fileID: 2100000, guid: 7c9bf17f8a3b78f4091618532bd42541, type: 2}
---- !u!65 &-7813160416669961783
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1628820146795486736}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &-8948575943560845835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,4 +308,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba9024ad46849e4a9b6fe55b4bfd94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attachmentPoint: {fileID: 7189803985990850069}
+--- !u!65 &-4332039367753084400
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628820146795486736}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &8277684557299568674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628820146795486736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a42fb0a7d4035804b9a736738477649e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-5995026845733746556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628820146795486736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eba9024ad46849e4a9b6fe55b4bfd94f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

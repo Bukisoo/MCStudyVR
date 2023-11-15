@@ -22,15 +22,28 @@ public class StackIngredient : MonoBehaviour
 
         if (other.CompareTag("Ingredient") && gameObject.CompareTag("BottomBun"))
         {
-            Debug.Log("Attaching ingredient model to bottom bun.");
+            Debug.Log("Attaching ingredient model to the parent of the bottom bun.");
 
-            // Attach the ingredient's model to the bottom bun
-            AttachIngredientModel(other);
+            Transform parentTransform = transform.parent; // Get the parent of the bottom bun
 
-            // Remove the ingredient GameObject
-            Destroy(other);
+            // Attach the ingredient to the parent of the bottom bun
+            other.transform.SetParent(parentTransform);
 
-            // Adjust the bottom bun collider to encompass the entire stack
+            // Calculate and set the position for the new ingredient
+            Vector3 newPosition = CalculateNextItemLocalPosition();
+            newPosition += parentTransform.position; // Adjust for parent's position
+            other.transform.position = newPosition;
+            other.transform.rotation = Quaternion.identity; // Adjust if necessary
+
+            // Optionally, disable physics on the ingredient to prevent further collisions
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+                Debug.Log("Physics disabled on the stacked ingredient.");
+            }
+
+            // Adjust the collider of the bottom bun to encompass the entire stack
             AdjustBottomBunCollider();
         }
         else
@@ -38,7 +51,6 @@ public class StackIngredient : MonoBehaviour
             Debug.Log("Collision with non-ingredient or non-bottom bun object.");
         }
     }
-
     private void AttachIngredientModel(GameObject ingredient)
     {
         // Assuming the ingredient has a MeshRenderer component
