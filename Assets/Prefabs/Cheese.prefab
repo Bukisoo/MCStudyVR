@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3285944406074327720}
   - component: {fileID: 4562614155473482519}
   - component: {fileID: -4950083250360233946}
-  - component: {fileID: -8364156614233463061}
+  - component: {fileID: 1831592544754157177}
   m_Layer: 0
   m_Name: Cheese
   m_TagString: Ingredient
@@ -300,7 +300,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!114 &-8364156614233463061
+--- !u!114 &1831592544754157177
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -309,6 +309,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3093567260967689405}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31fe3ccb3ecb4aa4ea07d86456762bea, type: 3}
+  m_Script: {fileID: 11500000, guid: bc7a1ed9ad3c87a428a7139ec05956ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3140536443734031270}
   - component: {fileID: -7052550792365329375}
   - component: {fileID: -4503223055388394515}
-  - component: {fileID: 5594873308605097130}
+  - component: {fileID: -2553429772402700509}
   m_Layer: 0
   m_Name: top pain
   m_TagString: Ingredient
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!114 &5594873308605097130
+--- !u!114 &-2553429772402700509
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -310,6 +310,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3371340060849045968}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31fe3ccb3ecb4aa4ea07d86456762bea, type: 3}
+  m_Script: {fileID: 11500000, guid: bc7a1ed9ad3c87a428a7139ec05956ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

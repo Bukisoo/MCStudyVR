@@ -18,21 +18,6 @@ public class Spawner : MonoBehaviour
 
     IEnumerator SpawnPrefabs()
     {
-        if (prefabToSpawn.CompareTag("BottomBun"))
-        {
-            // Spawn BottomBun prefabs each with a unique parent
-            for (int i = 0; i < numberOfInstances; i++)
-            {
-                GameObject newParent = new GameObject("BottomBunParent");
-                newParent.transform.position = transform.position;
-                spawnedObjects.Add(newParent);
-
-                SpawnPrefab(newParent);
-                yield return new WaitForSeconds(spawnDelay);
-            }
-        }
-        else
-        {
             // Spawn other prefabs directly up to the specified count
             for (int i = 0; i < numberOfInstances; i++)
             {
@@ -40,7 +25,6 @@ public class Spawner : MonoBehaviour
                 spawnedObjects.Add(instance);
                 yield return new WaitForSeconds(spawnDelay);
             }
-        }
     }
 
     GameObject SpawnPrefab(GameObject parent)
@@ -60,9 +44,9 @@ public class Spawner : MonoBehaviour
         // Check and spawn prefabs if any are missing
         foreach (var obj in spawnedObjects)
         {
-            if (obj != null && obj.CompareTag("BottomBunParent"))
+        if (obj != null)
             {
-                MaintainPrefabCount(obj);
+                MaintainPrefabCount(this.gameObject);
             }
         }
     }
