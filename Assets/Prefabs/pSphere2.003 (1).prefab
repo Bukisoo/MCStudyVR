@@ -20,6 +20,7 @@ GameObject:
   m_Name: pSphere2.003 (1)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_TagString: BottomBun
 =======
   m_TagString: BottomBum
@@ -27,6 +28,9 @@ GameObject:
 =======
   m_TagString: BottomBum
 >>>>>>> parent of da8a478 (Merge branch 'Mcdo-Fonctionnel' of https://github.com/Bukisoo/MCStudyVR into Mcdo-Fonctionnel)
+=======
+  m_TagString: BottomBun
+>>>>>>> parent of 0b739b6 (aaa)
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
