@@ -3,6 +3,7 @@ using UnityEngine;
 public class StackIngredient : MonoBehaviour
 {
     private BoxCollider bottomBunCollider; // Collider for the bottom bun
+    private Transform bottomBunTransform; // Transform of the bottom bun
 
     void Start()
     {
@@ -12,6 +13,16 @@ public class StackIngredient : MonoBehaviour
         {
             bottomBunCollider = gameObject.AddComponent<BoxCollider>();
         }
+
+        // Find the BottomBun child and store its transform
+        foreach (Transform child in transform)
+        {
+            if (child.CompareTag("BottomBun"))
+            {
+                bottomBunTransform = child;
+                break;
+            }
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -20,36 +31,43 @@ public class StackIngredient : MonoBehaviour
 
         Debug.Log($"Collision detected with object: {other.name} and tag: {other.tag}");
 
-        if (other.CompareTag("Ingredient") && gameObject.CompareTag("BottomBun"))
+        if (other.CompareTag("Ingredient") && !other.CompareTag("BottomBun"))
         {
-            Debug.Log("Attaching ingredient model to the parent of the bottom bun.");
+            Debug.Log("Attaching ingredient to the parent of the bottom bun.");
 
-            Transform parentTransform = transform.parent; // Get the parent of the bottom bun
-
-            // Attach the ingredient to the parent of the bottom bun
-            other.transform.SetParent(parentTransform);
-
-            // Calculate and set the position for the new ingredient
-            Vector3 newPosition = CalculateNextItemLocalPosition();
-            newPosition += parentTransform.position; // Adjust for parent's position
-            other.transform.position = newPosition;
-            other.transform.rotation = Quaternion.identity; // Adjust if necessary
-
-            // Optionally, disable physics on the ingredient to prevent further collisions
-            Rigidbody rb = other.GetComponent<Rigidbody>();
-            if (rb != null)
+            if (bottomBunTransform != null)
             {
-                rb.isKinematic = true;
-                Debug.Log("Physics disabled on the stacked ingredient.");
-            }
+                // Attach the ingredient to the parent of the bottom bun
+                other.transform.SetParent(bottomBunTransform.parent);
 
-            // Adjust the collider of the bottom bun to encompass the entire stack
-            AdjustBottomBunCollider();
+                // Calculate and set the position for the new ingredient
+                Vector3 newPosition = bottomBunTransform.position;
+                newPosition.y += CalculateYOffset();
+                other.transform.position = newPosition;
+                other.transform.rotation = Quaternion.identity; // Adjust if necessary
+
+                // Fully constrain the ingredient's Rigidbody
+                Rigidbody rb = other.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.constraints = RigidbodyConstraints.FreezeAll;
+                    Debug.Log("Physics constraints applied to the ingredient.");
+                }
+
+                // Adjust the collider of the bottom bun to encompass the entire stack
+                AdjustBottomBunCollider();
+            }
         }
         else
         {
-            Debug.Log("Collision with non-ingredient or non-bottom bun object.");
+            Debug.Log("Collision with non-ingredient or another bottom bun object.");
         }
+    }
+
+    private float CalculateYOffset()
+    {
+        // Offset for each new ingredient based on the number of children
+        return bottomBunCollider.size.y * 0.5f + 0.1f * transform.parent.childCount;
     }
     private void AttachIngredientModel(GameObject ingredient)
     {

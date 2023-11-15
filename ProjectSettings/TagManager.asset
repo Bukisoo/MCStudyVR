@@ -10,6 +10,7 @@ TagManager:
   - Ingredient
   - BottomBum
   - BottomBun
+  - BottomBunParent
   layers:
   - Default
   - TransparentFX

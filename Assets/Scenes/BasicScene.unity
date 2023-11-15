@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18306595, g: 0.2287429, b: 0.3066922, a: 1}
+  m_IndirectSpecularColor: {r: 0.18306574, g: 0.22874251, b: 0.30669183, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1590,9 +1590,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79526e623d603fd43b8d800631778267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 6965655788007696279, guid: 91e634502f0807343b5674a438846657, type: 3}
-  numberOfInstances: 50
-  spawnDelay: 0.01
+  prefabToSpawn: {fileID: 8544286536695093776, guid: bca0d292763144549bae3de61f833a68, type: 3}
+  numberOfInstances: 10
+  spawnDelay: 0.1
   positionFuzziness: 0.1
 --- !u!4 &509407444
 Transform:
@@ -2120,8 +2120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 1628820146795486736, guid: f781bc3ea96059a4d96ea7dd721e0b6a, type: 3}
-  numberOfInstances: 30
-  spawnDelay: 0.01
+  numberOfInstances: 10
+  spawnDelay: 0.1
   positionFuzziness: 0.1
 --- !u!4 &748962560
 Transform:
@@ -2499,9 +2499,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79526e623d603fd43b8d800631778267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 55281649327053854, guid: 877a051d5c4727644aa19dcc9d3af665, type: 3}
-  numberOfInstances: 50
-  spawnDelay: 0.01
+  prefabToSpawn: {fileID: 3093567260967689405, guid: 6ba4a2e7c793f3b4fb303fc020a12ae3, type: 3}
+  numberOfInstances: 10
+  spawnDelay: 0.1
   positionFuzziness: 0.1
 --- !u!4 &1028606121
 Transform:
@@ -4656,8 +4656,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450485077}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &1450485082
-BoxCollider:
+--- !u!154 &1450485082
+TerrainCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4671,12 +4671,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 10, y: 2.220446e-16, z: 10}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_TerrainData: {fileID: 0}
+  m_EnableTreeColliders: 1
 --- !u!1 &1469173936
 GameObject:
   m_ObjectHideFlags: 0
@@ -4875,8 +4874,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79526e623d603fd43b8d800631778267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 5635801473502279675, guid: d9d76366046174843a11f650cdd8c899, type: 3}
-  numberOfInstances: 50
+  prefabToSpawn: {fileID: 8258694679823259633, guid: 568178e81ce39544ba02ad3bd384fdeb, type: 3}
+  numberOfInstances: 10
   spawnDelay: 0.1
   positionFuzziness: 0.1
 --- !u!4 &1494323497
@@ -5974,9 +5973,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79526e623d603fd43b8d800631778267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 5615492691203847962, guid: 572496762a726f848923442efc97cca5, type: 3}
+  prefabToSpawn: {fileID: 2243067983510141087, guid: 33befdc6ef5d2cf4fa29e6589bd585e7, type: 3}
   numberOfInstances: 10
-  spawnDelay: 0.01
+  spawnDelay: 0.1
   positionFuzziness: 0.1
 --- !u!4 &1794784318
 Transform:
@@ -6515,9 +6514,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79526e623d603fd43b8d800631778267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 7533501932707510840, guid: 0acf877da814b13408ffbb954b336f5a, type: 3}
+  prefabToSpawn: {fileID: 3371340060849045968, guid: 99740efd52019b64e9eb26c956b85dfa, type: 3}
   numberOfInstances: 10
-  spawnDelay: 0.01
+  spawnDelay: 0.1
   positionFuzziness: 0.1
 --- !u!4 &2006616424
 Transform:
