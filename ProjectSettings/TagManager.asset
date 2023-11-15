@@ -9,6 +9,7 @@ TagManager:
   - Poubelle
   - Ingredient
   - BottomBum
+  - BottomBun
   layers:
   - Default
   - TransparentFX
