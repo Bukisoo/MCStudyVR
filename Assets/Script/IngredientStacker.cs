@@ -33,7 +33,15 @@ public class IngredientStacker : MonoBehaviour
             XRGrabInteractable parentGrabInteractable = parentObject.GetComponent<XRGrabInteractable>();
             if (parentGrabInteractable == null)
             {
-                parentObject.gameObject.AddComponent<XRGrabInteractable>();
+                parentGrabInteractable = parentObject.gameObject.AddComponent<XRGrabInteractable>();
+            }
+
+            // Add a collider to the parent if it doesn't already have one
+            Collider parentCollider = parentObject.GetComponent<Collider>();
+            if (parentCollider == null)
+            {
+                // Adjust the type of collider based on your requirement
+                parentObject.gameObject.AddComponent<BoxCollider>();
             }
         }
     }
