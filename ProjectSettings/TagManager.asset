@@ -3,15 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Grill
-  - Anchor
-  - Poubelle
-  - Ingredient
-  - BottomBum
-  - BottomBun
-  - BottomBunParent
-  - resetCar
+  tags: []
   layers:
   - Default
   - TransparentFX
