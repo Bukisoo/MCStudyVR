@@ -11,7 +11,11 @@ TagManager:
   - BottomBum
   - BottomBun
   - BottomBunParent
+<<<<<<< Updated upstream
   - resetCar
+=======
+  - RightHand
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX

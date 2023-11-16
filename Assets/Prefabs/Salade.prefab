@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -2598282478525483073}
   - component: {fileID: -5305980500702709498}
   - component: {fileID: -4476052483285496332}
+  - component: {fileID: -5847615104994476646}
   m_Layer: 0
   m_Name: Salade
   m_TagString: Ingredient
@@ -312,3 +313,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc7a1ed9ad3c87a428a7139ec05956ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &-5847615104994476646
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8258694679823259633}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.22002448, y: 0.014549617, z: 0.22002448}
+  m_Center: {x: 0, y: 0.003284739, z: 0}
