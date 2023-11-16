@@ -11,6 +11,7 @@ TagManager:
   - BottomBum
   - BottomBun
   - BottomBunParent
+  - resetCar
   layers:
   - Default
   - TransparentFX
