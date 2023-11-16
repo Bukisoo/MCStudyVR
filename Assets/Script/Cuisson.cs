@@ -18,8 +18,8 @@ public class Cuisson : MonoBehaviour
     void OnTriggerExit(Collider other){
         if(other.gameObject.tag == "Grill"){
             CuissonViande = false;
-        }
     }
+}
 
     // Update is called once per frame
     void Update()
