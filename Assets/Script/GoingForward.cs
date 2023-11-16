@@ -8,6 +8,7 @@ public class GoingForward : MonoBehaviour
     private float originalX;
     private float originalY;
     private float originalZ;
+    private bool Drive = true;
 
     void OnTriggerEnter(Collider other){
         if(other.gameObject.tag == "resetCar"){
@@ -15,7 +16,14 @@ public class GoingForward : MonoBehaviour
             // Reset the position of the object
             transform.position = new Vector3(originalX, originalY, originalZ);
         }
-            
+        if(other.gameObject.tag == "Drive"){
+            //stop car
+            Drive = false;
+        }
+        if (other.GetComponent<Collider>().tag == "Ingredient")
+        {
+            Drive = true;
+        }
     }
     
     // Start is called before the first frame update
@@ -30,7 +38,9 @@ public class GoingForward : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MoveForward();
+        if(Drive == true){
+            MoveForward();
+        }
     }
 
     void MoveForward()

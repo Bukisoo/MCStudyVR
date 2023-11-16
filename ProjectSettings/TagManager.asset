@@ -12,6 +12,8 @@ TagManager:
   - BottomBun
   - BottomBunParent
   - resetCar
+  - Drive
+  - Service
   layers:
   - Default
   - TransparentFX
