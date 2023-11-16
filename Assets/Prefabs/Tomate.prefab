@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 494385364486037741}
   - component: {fileID: 535029243501309079}
   - component: {fileID: 1020966931278615489}
-  - component: {fileID: 9066186694639254608}
+  - component: {fileID: 1283221393474499250}
+  - component: {fileID: -7615419223490928856}
   m_Layer: 0
   m_Name: Tomate
   m_TagString: Ingredient
@@ -105,7 +106,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -302,7 +303,28 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
---- !u!114 &9066186694639254608
+--- !u!65 &1283221393474499250
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544286536695093776}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5878708, y: 0.021927092, z: 0.5878707}
+  m_Center: {x: 0.009478658, y: 0.0000006449409, z: -0.000000014901161}
+--- !u!114 &-7615419223490928856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
