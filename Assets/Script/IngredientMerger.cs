@@ -4,66 +4,39 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class IngredientMerger : MonoBehaviour
 {
     private XRGrabInteractable grabInteractable;
-    private XRBaseInteractor rightHandInteractor;
-    private XRBaseInteractor leftHandInteractor;
 
-    private void Awake()
+    private void Start()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
-        if (grabInteractable == null)
-        {
-            Debug.LogError("XRGrabInteractable component missing", this);
-            return;
-        }
-
-        grabInteractable.selectEntered.AddListener(OnGrabbed);
-        grabInteractable.selectExited.AddListener(OnReleased);
     }
 
-    private void OnGrabbed(SelectEnterEventArgs arg)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (arg.interactor.CompareTag("RightHand"))
+        // Check if the colliding object is also an ingredient
+        IngredientMerger otherIngredient = collision.gameObject.GetComponent<IngredientMerger>();
+        if (otherIngredient != null)
         {
-            rightHandInteractor = arg.interactor;
-            Debug.Log(gameObject.name + " was grabbed by right hand", this);
-        }
-        else if (arg.interactor.CompareTag("LeftHand"))
-        {
-            leftHandInteractor = arg.interactor;
-            Debug.Log(gameObject.name + " was grabbed by left hand", this);
-        }
-    }
+            // Check if both ingredients are currently being held
+            if (IsBeingHeld() && otherIngredient.IsBeingHeld())
+            {
+                // Child this ingredient to the other
+                transform.SetParent(collision.transform);
 
-    private void OnReleased(SelectExitEventArgs arg)
-    {
-        if (arg.interactor == rightHandInteractor)
-        {
-            rightHandInteractor = null;
-            Debug.Log(gameObject.name + " was released by right hand", this);
-        }
-        else if (arg.interactor == leftHandInteractor)
-        {
-            leftHandInteractor = null;
-            Debug.Log(gameObject.name + " was released by left hand", this);
+                // Remove XRGrabInteractable from this ingredient
+                if (grabInteractable != null)
+                {
+                    Destroy(grabInteractable);
+                    //remove the IngredientMerger script from the object
+                    Destroy(this);
+                    //remove the box collider from the object
+                    Destroy(GetComponent<BoxCollider>());
+                }
+            }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private bool IsBeingHeld()
     {
-        // ... (rest of your OnTriggerEnter method)
-    }
-
-    private void MakeChildOf(IngredientMerger child, IngredientMerger parent)
-    {
-        // ... (rest of your MakeChildOf method)
-    }
-
-    private void OnDestroy()
-    {
-        if (grabInteractable != null)
-        {
-            grabInteractable.selectEntered.RemoveListener(OnGrabbed);
-            grabInteractable.selectExited.RemoveListener(OnReleased);
-        }
+        return grabInteractable.isSelected;
     }
 }
