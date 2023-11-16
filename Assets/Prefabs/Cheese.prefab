@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 4562614155473482519}
   - component: {fileID: -4950083250360233946}
   - component: {fileID: 1831592544754157177}
-  - component: {fileID: -8396518660518506531}
   m_Layer: 0
   m_Name: Cheese
   m_TagString: Ingredient
@@ -313,24 +312,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc7a1ed9ad3c87a428a7139ec05956ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &-8396518660518506531
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3093567260967689405}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.80981636, y: 0.019091275, z: 0.80981636}
-  m_Center: {x: 0, y: 0, z: 0}
