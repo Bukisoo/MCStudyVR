@@ -9,6 +9,7 @@ public class IngredientMerger : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("IngredientMerger Awake called", this);
         grabInteractable = GetComponent<XRGrabInteractable>();
         if (grabInteractable == null)
         {
