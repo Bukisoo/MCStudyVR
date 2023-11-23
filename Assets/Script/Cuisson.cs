@@ -12,13 +12,20 @@ public class Cuisson : MonoBehaviour
     void OnTriggerEnter(Collider other){
         if(other.gameObject.tag == "Grill"){
             CuissonViande = true;
+            GetComponent <ParticleSystem>().Play();
         }
 }
 
     void OnTriggerExit(Collider other){
         if(other.gameObject.tag == "Grill"){
             CuissonViande = false;
+            GetComponent <ParticleSystem>().Stop();
         }
+    }
+
+    void Start()
+    {
+        GetComponent <ParticleSystem>().Stop();
     }
 
     // Update is called once per frame
@@ -26,18 +33,16 @@ public class Cuisson : MonoBehaviour
     {
         if(CuissonViande == true){
             TempsCuisson++;
-            if(TempsCuisson < 1800)
-            {
-                Debug.Log("La viande cuit");
-            }
-            if(TempsCuisson>= 1800 && TempsCuisson< 3600){
-                Debug.Log("La viande est cuite");
+            if(TempsCuisson>= 600 && TempsCuisson< 1800){
+                // Debug.Log("La viande est cuite");
                 this.GetComponent<Renderer>().material = MatCuit;
             }
-            if(TempsCuisson>= 3600){
-                Debug.Log("La viande est cramé");
+            if(TempsCuisson>= 1800){
+                // Debug.Log("La viande est cramé");
                 this.GetComponent<Renderer>().material = MatCrame;
+                this.GetComponent<ParticleSystemRenderer>().material = MatCrame;
             }
+
         }
     }
 }
