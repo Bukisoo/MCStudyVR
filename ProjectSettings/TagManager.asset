@@ -16,6 +16,7 @@ TagManager:
   - Service
   - LeftHand
   - RightHand
+  - EasterEgg
   layers:
   - Default
   - TransparentFX
