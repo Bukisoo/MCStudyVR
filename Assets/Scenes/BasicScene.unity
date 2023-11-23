@@ -372,6 +372,12 @@ Transform:
   - {fileID: 1625983622}
   - {fileID: 483613189}
   - {fileID: 830694200}
+  - {fileID: 748962560}
+  - {fileID: 509407444}
+  - {fileID: 1494323497}
+  - {fileID: 2006616424}
+  - {fileID: 1794784318}
+  - {fileID: 1028606121}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &154615528
@@ -1939,7 +1945,7 @@ GameObject:
   - component: {fileID: 509407444}
   - component: {fileID: 509407443}
   m_Layer: 0
-  m_Name: SteakSpawner (2)
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1970,11 +1976,11 @@ Transform:
   m_GameObject: {fileID: 509407442}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.8622, y: 1.1, z: -0.266}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.69645995, y: 1.1, z: -0.133}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1210748264}
+  m_Father: {fileID: 32337911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &523671501
 GameObject:
@@ -2499,7 +2505,7 @@ GameObject:
   - component: {fileID: 748962560}
   - component: {fileID: 748962559}
   m_Layer: 0
-  m_Name: SteakSpawner (1)
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2530,11 +2536,11 @@ Transform:
   m_GameObject: {fileID: 748962558}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.8500588, y: 1.1, z: 0.20898336}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.7049588, y: 1.1, z: 0.10449168}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1210748264}
+  m_Father: {fileID: 32337911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &762130483
 GameObject:
@@ -2936,7 +2942,7 @@ GameObject:
   - component: {fileID: 1028606121}
   - component: {fileID: 1028606120}
   m_Layer: 0
-  m_Name: SteakSpawner (6)
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2967,11 +2973,11 @@ Transform:
   m_GameObject: {fileID: 1028606119}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6309, y: 1.1, z: -0.269}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.85836995, y: 1.1, z: -0.1345}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1210748264}
+  m_Father: {fileID: 32337911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1106543142
 GameObject:
@@ -3430,12 +3436,6 @@ Transform:
   - {fileID: 1265094244}
   - {fileID: 523671502}
   - {fileID: 466980092}
-  - {fileID: 748962560}
-  - {fileID: 509407444}
-  - {fileID: 1494323497}
-  - {fileID: 2006616424}
-  - {fileID: 1794784318}
-  - {fileID: 1028606121}
   m_Father: {fileID: 32337911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1252206270
@@ -4332,7 +4332,7 @@ GameObject:
   - component: {fileID: 1494323497}
   - component: {fileID: 1494323496}
   m_Layer: 0
-  m_Name: SteakSpawner (3)
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4363,11 +4363,11 @@ Transform:
   m_GameObject: {fileID: 1494323495}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6085556, y: 1.1, z: 0.1577434}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.87401104, y: 1.1, z: 0.0788717}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1210748264}
+  m_Father: {fileID: 32337911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1499343590
 PrefabInstance:
@@ -5539,7 +5539,7 @@ GameObject:
   - component: {fileID: 1794784318}
   - component: {fileID: 1794784317}
   m_Layer: 0
-  m_Name: SteakSpawner (5)
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5570,11 +5570,11 @@ Transform:
   m_GameObject: {fileID: 1794784316}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3597258, y: 1.1, z: 0.17440677}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.0481919, y: 1.1, z: 0.08720338}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1210748264}
+  m_Father: {fileID: 32337911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1825262782
 PrefabInstance:
@@ -6193,7 +6193,7 @@ GameObject:
   - component: {fileID: 2006616424}
   - component: {fileID: 2006616423}
   m_Layer: 0
-  m_Name: SteakSpawner (4)
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6224,11 +6224,11 @@ Transform:
   m_GameObject: {fileID: 2006616422}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3627, y: 1.1, z: -0.258}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.0461099, y: 1.1, z: -0.129}
+  m_LocalScale: {x: 0.7, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1210748264}
+  m_Father: {fileID: 32337911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2044548568
 GameObject:
