@@ -18,13 +18,12 @@ public class Spawner : MonoBehaviour
 
     IEnumerator SpawnPrefabs()
     {
-            // Spawn other prefabs directly up to the specified count
-            for (int i = 0; i < numberOfInstances; i++)
-            {
-                GameObject instance = SpawnPrefab(this.gameObject);
-                spawnedObjects.Add(instance);
-                yield return new WaitForSeconds(spawnDelay);
-            }
+        for (int i = 0; i < numberOfInstances; i++)
+        {
+            GameObject instance = SpawnPrefab(this.gameObject);
+            spawnedObjects.Add(instance);
+            yield return new WaitForSeconds(spawnDelay);
+        }
     }
 
     GameObject SpawnPrefab(GameObject parent)
@@ -35,31 +34,28 @@ public class Spawner : MonoBehaviour
             Random.Range(-positionFuzziness, positionFuzziness));
 
         GameObject instance = Instantiate(prefabToSpawn, parent.transform.position + randomOffset, Quaternion.identity);
+        instance.name = prefabToSpawn.name;
         instance.transform.SetParent(parent.transform);
         return instance;
     }
 
     void Update()
     {
-        // Check and spawn prefabs if any are missing
-        foreach (var obj in spawnedObjects)
-        {
-        if (obj != null)
-            {
-                MaintainPrefabCount(this.gameObject);
-            }
-        }
+        MaintainPrefabCount(this.gameObject);
     }
 
     void MaintainPrefabCount(GameObject parent)
     {
-        if (parent.transform.childCount < 1)
+        int currentChildCount = parent.transform.childCount;
+        int prefabsToSpawn = numberOfInstances - currentChildCount;
+
+        for (int i = 0; i < prefabsToSpawn; i++)
         {
             SpawnPrefab(parent);
         }
     }
 
-        void OnDrawGizmos()
+    void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(transform.position, 0.05f);
