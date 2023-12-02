@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GoingForward : MonoBehaviour
 {
@@ -10,43 +11,112 @@ public class GoingForward : MonoBehaviour
     private float originalZ;
     private bool Drive = true;
 
-    void OnTriggerEnter(Collider other){
-        if(other.gameObject.tag == "resetCar"){
-            Debug.Log("test");
-            // Reset the position of the object
-            transform.position = new Vector3(originalX, originalY, originalZ);
-        }
-        if(other.gameObject.tag == "Drive"){
-            //stop car
-            Drive = false;
-        }
-        if (other.GetComponent<Collider>().tag == "Ingredient")
-        {
-            Drive = true;
-        }
+    // Define an order structure
+    private struct Order
+    {
+        public List<string> ingredients;
     }
-    
-    // Start is called before the first frame update
+
+    // List of possible orders
+    private List<Order> possibleOrders = new List<Order>()
+    {
+        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Cheese", "Cooked Steak", "Bottom Bun" } },
+        new Order { ingredients = new List<string> { "Top Bun", "Cheese", "Cooked Steak", "Cheese", "Bottom Bun" } },
+        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Salad", "Bottom Bun" } }
+    };
+
+    // Current order
+    private Order currentOrder;
+
+    // Public TextMeshPro - Test (UI) for displaying the order
+    public TextMeshProUGUI orderDisplay;
+
     void Start()
     {
-        // Save the original position of the object
         originalX = transform.position.x;
         originalY = transform.position.y;
         originalZ = transform.position.z;
+
+        // Select a random order
+        currentOrder = possibleOrders[Random.Range(0, possibleOrders.Count)];
+
+        // Display the current order
+        DisplayCurrentOrder();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Drive == true){
+        if (Drive)
+        {
             MoveForward();
         }
     }
 
     void MoveForward()
     {
-        // Move the object on positive X axis
         transform.Translate(Vector3.right * Time.deltaTime * speed);
     }
-}
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "resetCar")
+        {
+            Debug.Log("Car Reset");
+            transform.position = new Vector3(originalX, originalY, originalZ);
+        }
+        else if (other.gameObject.tag == "Drive")
+        {
+            Drive = false;
+        }
+        else if (other.gameObject.tag == "Burger")
+        {
+            EvaluateBurger(other.gameObject);
+        }
+    }
+
+    // Evaluate the received burger
+    void EvaluateBurger(GameObject burger)
+    {
+        List<string> burgerIngredients = new List<string>();
+
+        foreach (Transform child in burger.transform)
+        {
+            burgerIngredients.Add(child.gameObject.name);
+        }
+
+        if (IsOrderCorrect(burgerIngredients, currentOrder))
+        {
+            Debug.Log("Burger accepted.");
+            Drive = true; // Resume driving
+        }
+        else
+        {
+            Debug.Log("Burger rejected.");
+            // Additional logic for rejected burger
+        }
+    }
+
+    // Check if the burger's ingredients match the current order (regardless of order)
+    private bool IsOrderCorrect(List<string> burgerIngredients, Order order)
+    {
+        foreach (string ingredient in order.ingredients)
+        {
+            if (!burgerIngredients.Contains(ingredient))
+                return false;
+        }
+
+        return true;
+    }
+
+    // Display the current order on the TextMesh
+    private void DisplayCurrentOrder()
+    {
+        string orderText = "Order: ";
+        foreach (string ingredient in currentOrder.ingredients)
+        {
+            orderText += "\n" + ingredient;
+        }
+
+        orderDisplay.text = orderText;
+    }
+}
