@@ -121,7 +121,7 @@ public class IngredientMerger : MonoBehaviour
         Destroy(child.gameObject);
         Debug.Log(newChild.name + " instantiated and set as child of " + parent.gameObject.name, this);
 
-        UpdateColliderSize(parent);
+        //UpdateColliderSize(parent);
     }
 
     private void UpdateColliderSize(IngredientMerger parent)
