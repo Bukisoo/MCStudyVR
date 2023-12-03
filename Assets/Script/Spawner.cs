@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Spawner : MonoBehaviour
 {
@@ -26,18 +27,56 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    GameObject SpawnPrefab(GameObject parent)
-    {
-        Vector3 randomOffset = new Vector3(
-            Random.Range(-positionFuzziness, positionFuzziness),
-            Random.Range(-positionFuzziness, positionFuzziness),
-            Random.Range(-positionFuzziness, positionFuzziness));
+GameObject SpawnPrefab(GameObject parent)
+{
+    Vector3 randomOffset = new Vector3(
+        Random.Range(-positionFuzziness, positionFuzziness),
+        Random.Range(-positionFuzziness, positionFuzziness),
+        Random.Range(-positionFuzziness, positionFuzziness));
 
-        GameObject instance = Instantiate(prefabToSpawn, parent.transform.position + randomOffset, Quaternion.identity);
-        instance.name = prefabToSpawn.name;
-        instance.transform.SetParent(parent.transform);
-        return instance;
+    GameObject instance = Instantiate(prefabToSpawn, parent.transform.position + randomOffset, Quaternion.identity);
+    instance.name = prefabToSpawn.name;
+    instance.transform.SetParent(parent.transform);
+
+    // Ensure the instance has a BoxCollider
+    BoxCollider collider = instance.GetComponent<BoxCollider>();
+    if (collider == null)
+    {
+        collider = instance.AddComponent<BoxCollider>();
+        // Optionally set as trigger
+        // collider.isTrigger = true;
     }
+
+    // Ensure the instance has an XRGrabInteractable
+    XRGrabInteractable grabInteractable = instance.GetComponent<XRGrabInteractable>();
+    if (grabInteractable == null)
+    {
+        grabInteractable = instance.AddComponent<XRGrabInteractable>();
+    }
+    grabInteractable.colliders.Add(collider);
+
+    // Ensure the instance has a Rigidbody
+    Rigidbody rb = instance.GetComponent<Rigidbody>();
+    if (rb == null)
+    {
+        rb = instance.AddComponent<Rigidbody>();
+        // Set to kinematic if you don't want physics to affect the object
+        rb.isKinematic = true;
+    }
+
+    //add the script "IngredientMerger" to the prefab
+    IngredientMerger ingredientMerger = instance.GetComponent<IngredientMerger>();
+    if (ingredientMerger == null)
+    {
+        ingredientMerger = instance.AddComponent<IngredientMerger>();
+    }
+    //Debug.Log("Spawned prefab with XRGrabInteractable and collider", instance);
+
+    return instance;
+}
+
+
+
 
     void Update()
     {

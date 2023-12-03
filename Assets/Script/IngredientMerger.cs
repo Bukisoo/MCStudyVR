@@ -1,23 +1,21 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.InputSystem; // Import the new Input System namespace
+
 
 public class IngredientMerger : MonoBehaviour
 {
-
-    // Add a field to reference the prefab
     [SerializeField] private GameObject ingredientPrefab;
 
     private XRGrabInteractable grabInteractable;
     private XRBaseInteractor rightHandInteractor;
     private XRBaseInteractor leftHandInteractor;
     
-     // Variable to track the height of the pile
     private float currentPileHeight = 0f;
-    private float yOffset = 0.1f; // Adjust this value as needed
+    private float yOffset = 0.3f;
 
     private void Awake()
     {
-        //Debug.Log("IngredientMerger Awake called", this);
         grabInteractable = GetComponent<XRGrabInteractable>();
         if (grabInteractable == null)
         {
@@ -29,23 +27,22 @@ public class IngredientMerger : MonoBehaviour
         grabInteractable.selectExited.AddListener(OnReleased);
     }
 
-private void OnGrabbed(SelectEnterEventArgs arg)
-{
-    // Add a debug statement to log the tag of the interactor
-    Debug.Log("Grabbed by interactor with tag: " + arg.interactor.tag, this);
-
-    if (arg.interactor.CompareTag("RightHand"))
+// Update method using the new Input System
+    private void OnGrabbed(SelectEnterEventArgs arg)
     {
-        rightHandInteractor = arg.interactor;
-        Debug.Log(gameObject.name + " was grabbed by right hand", this);
-    }
-    else if (arg.interactor.CompareTag("LeftHand"))
-    {
-        leftHandInteractor = arg.interactor;
-        Debug.Log(gameObject.name + " was grabbed by left hand", this);
-    }
-}
+        Debug.Log("Grabbed by interactor with tag: " + arg.interactor.tag, this);
 
+        if (arg.interactor.CompareTag("RightHand"))
+        {
+            rightHandInteractor = arg.interactor;
+            Debug.Log(gameObject.name + " was grabbed by right hand", this);
+        }
+        else if (arg.interactor.CompareTag("LeftHand"))
+        {
+            leftHandInteractor = arg.interactor;
+            Debug.Log(gameObject.name + " was grabbed by left hand", this);
+        }
+    }
 
     private void OnReleased(SelectExitEventArgs arg)
     {
@@ -60,12 +57,14 @@ private void OnGrabbed(SelectEnterEventArgs arg)
             Debug.Log(gameObject.name + " was released by left hand", this);
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ingredient") && grabInteractable.isSelected)
+        Debug.Log(gameObject.name + "triggered", this);
+        if (other.CompareTag("Ingredient") && ( grabInteractable.isSelected))
         {
             IngredientMerger otherIngredient = other.GetComponent<IngredientMerger>();
-            if (otherIngredient != null && otherIngredient.grabInteractable.isSelected)
+            if (otherIngredient != null && ( otherIngredient.grabInteractable.isSelected))
             {
                 if (rightHandInteractor != null && otherIngredient.leftHandInteractor != null)
                 {
@@ -81,71 +80,58 @@ private void OnGrabbed(SelectEnterEventArgs arg)
         }
     }
 
-private void MakeChildOf(IngredientMerger child, IngredientMerger parent)
-{
-    // Dynamically load the prefab based on the child's name
-    GameObject prefab = Resources.Load<GameObject>("Prefabs/" + child.gameObject.name);
-
-    if (prefab == null)
+    private void MakeChildOf(IngredientMerger child, IngredientMerger parent)
     {
-        Debug.LogError("No prefab found for name: " + child.gameObject.name + ". Path: Prefabs/" + child.gameObject.name, this);
-        return;
-    }
-    // Instantiate a new object from the loaded prefab
-    GameObject newChild = Instantiate(prefab, parent.transform);
+        GameObject prefab = Resources.Load<GameObject>("Prefabs/" + child.gameObject.name);
+        if (prefab == null)
+        {
+            Debug.LogError("No prefab found for name: " + child.gameObject.name + ". Path: Prefabs/" + child.gameObject.name, this);
+            return;
+        }
 
-    // Change the name of the instantiated object to match the prefab name
-    newChild.name = prefab.name;
+        GameObject newChild = Instantiate(prefab, parent.transform);
+        newChild.name = prefab.name;
 
-    // Store original scale
-    Vector3 originalScale = child.transform.localScale;
+        Vector3 originalScale = child.transform.localScale;
+        Vector3 inverseParentScale = new Vector3(1 / parent.transform.localScale.x, 1 / parent.transform.localScale.y, 1 / parent.transform.localScale.z);
+        newChild.transform.localScale = Vector3.Scale(originalScale, inverseParentScale);
+        newChild.transform.localPosition = new Vector3(0, currentPileHeight, 0);
+        newChild.transform.localRotation = Quaternion.identity;
 
-    // Calculate inverse scale of parent
-    Vector3 inverseParentScale = new Vector3(
-        1 / parent.transform.localScale.x,
-        1 / parent.transform.localScale.y,
-        1 / parent.transform.localScale.z
-    );
+        currentPileHeight += yOffset;
 
-    // Apply inverse scale to maintain original scale
-    newChild.transform.localScale = Vector3.Scale(originalScale, inverseParentScale);
+        Rigidbody rigidbody = newChild.GetComponent<Rigidbody>();
+        if (rigidbody != null)
+        {
+            rigidbody.isKinematic = true;
+        }
 
-    // Set local position and rotation
-    newChild.transform.localPosition = Vector3.zero;
-    newChild.transform.localRotation = Quaternion.identity;
+        XRGrabInteractable grabInteractable = newChild.GetComponent<XRGrabInteractable>();
+        if (grabInteractable != null)
+        {
+            grabInteractable.enabled = false;
+        }
 
-    // Offset position along Y-axis based on the current pile height
-    newChild.transform.localPosition = new Vector3(0, currentPileHeight, 0);
-    newChild.transform.localRotation = Quaternion.identity;
+        BoxCollider boxCollider = newChild.GetComponent<BoxCollider>();
+        if (boxCollider != null)
+        {
+            Destroy(boxCollider);
+        }
 
-    // Increment the pile height for the next child
-    currentPileHeight += yOffset;
+        Destroy(child.gameObject);
+        Debug.Log(newChild.name + " instantiated and set as child of " + parent.gameObject.name, this);
 
-    // Disable Rigidbody
-    var rigidbody = newChild.GetComponent<Rigidbody>();
-    if (rigidbody != null)
-    {
-        rigidbody.isKinematic = true;
+        UpdateColliderSize(parent);
     }
 
-    // Disable XRGrabInteractable script
-    var grabInteractable = newChild.GetComponent<XRGrabInteractable>();
-    if (grabInteractable != null)
+    private void UpdateColliderSize(IngredientMerger parent)
     {
-        grabInteractable.enabled = false;
+        BoxCollider parentCollider = parent.GetComponent<BoxCollider>();
+        if (parentCollider != null)
+        {
+            float newColliderHeight = currentPileHeight;
+            parentCollider.size = new Vector3(parentCollider.size.x, newColliderHeight, parentCollider.size.z);
+            parentCollider.center = new Vector3(parentCollider.center.x, newColliderHeight / 2, parentCollider.center.z);
+        }
     }
-
-    // Disable and remove Box Collider
-    var boxCollider = newChild.GetComponent<BoxCollider>();
-    if (boxCollider != null)
-    {
-        Destroy(boxCollider);
-    }
-
-    // Destroy the original child object
-    Destroy(child.gameObject);
-
-    Debug.Log(newChild.name + " instantiated and set as child of " + parent.gameObject.name, this);
-}
-
 }
