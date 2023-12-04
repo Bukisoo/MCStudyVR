@@ -38,7 +38,7 @@ public class EasterEgg : MonoBehaviour
     {
         if(EasterEggState == true){
             TempsEasterEgg++;
-            if(TempsEasterEgg>= 12000){
+            if(TempsEasterEgg>= 600){
                 BasketHop.gameObject.SetActive(false);
                 AudioEasterEgg.gameObject.SetActive(false);
                 McDoAudio.gameObject.SetActive(true);
