@@ -68,7 +68,7 @@ public class GoingForward : MonoBehaviour
         {
             Drive = false;
         }
-        else if (other.gameObject.tag == "Burger")
+        else if (other.gameObject.tag == "Ingredient")
         {
             EvaluateBurger(other.gameObject);
         }
@@ -81,7 +81,11 @@ void EvaluateBurger(GameObject burger)
 
     foreach (Transform child in burger.transform)
     {
-        burgerIngredients.Add(child.gameObject.name);
+        // Check if the child is not the same as the parent
+        if (child.gameObject != burger)
+        {
+            burgerIngredients.Add(child.gameObject.name);
+        }
     }
 
     // Display burger composition in the console

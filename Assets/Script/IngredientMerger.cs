@@ -39,17 +39,17 @@ public class IngredientMerger : MonoBehaviour
 // Update method using the new Input System
 private void OnGrabbed(SelectEnterEventArgs arg)
     {
-        Debug.Log("Grabbed by interactor with tag: " + arg.interactor.tag, this);
+        //Debug.Log("Grabbed by interactor with tag: " + arg.interactor.tag, this);
 
         if (arg.interactor.CompareTag("RightHand"))
         {
             rightHandInteractor = arg.interactor;
-            Debug.Log(gameObject.name + " was grabbed by right hand", this);
+            //Debug.Log(gameObject.name + " was grabbed by right hand", this);
         }
         else if (arg.interactor.CompareTag("LeftHand"))
         {
             leftHandInteractor = arg.interactor;
-            Debug.Log(gameObject.name + " was grabbed by left hand", this);
+            //Debug.Log(gameObject.name + " was grabbed by left hand", this);
 
             // Set the collider's isTrigger property to true when grabbed by left hand
             SetColliderTriggerStatus(true);
@@ -61,12 +61,12 @@ private void OnGrabbed(SelectEnterEventArgs arg)
         if (arg.interactor == rightHandInteractor)
         {
             rightHandInteractor = null;
-            Debug.Log(gameObject.name + " was released by right hand", this);
+            //Debug.Log(gameObject.name + " was released by right hand", this);
         }
         else if (arg.interactor == leftHandInteractor)
         {
             leftHandInteractor = null;
-            Debug.Log(gameObject.name + " was released by left hand", this);
+            //Debug.Log(gameObject.name + " was released by left hand", this);
 
             // Revert the collider's isTrigger property to false when released by left hand
             SetColliderTriggerStatus(false);
@@ -92,12 +92,12 @@ private void OnGrabbed(SelectEnterEventArgs arg)
             {
                 if (rightHandInteractor != null && otherIngredient.leftHandInteractor != null)
                 {
-                    Debug.Log("Merging: " + gameObject.name + " (right hand) into " + other.gameObject.name + " (left hand)", this);
+                    //Debug.Log("Merging: " + gameObject.name + " (right hand) into " + other.gameObject.name + " (left hand)", this);
                     MakeChildOf(this, otherIngredient);
                 }
                 else if (leftHandInteractor != null && otherIngredient.rightHandInteractor != null)
                 {
-                    Debug.Log("Merging: " + other.gameObject.name + " (right hand) into " + gameObject.name + " (left hand)", this);
+                    //Debug.Log("Merging: " + other.gameObject.name + " (right hand) into " + gameObject.name + " (left hand)", this);
                     MakeChildOf(otherIngredient, this);
                 }
             }
@@ -143,7 +143,7 @@ private void OnGrabbed(SelectEnterEventArgs arg)
         }
 
         Destroy(child.gameObject);
-        Debug.Log(newChild.name + " instantiated and set as child of " + parent.gameObject.name, this);
+        //Debug.Log(newChild.name + " instantiated and set as child of " + parent.gameObject.name, this);
 
         //UpdateTriggerColliderSize();
     }
