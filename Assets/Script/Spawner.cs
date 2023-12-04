@@ -73,6 +73,10 @@ GameObject SpawnPrefab(GameObject parent)
     //Debug.Log("Spawned prefab with XRGrabInteractable and collider", instance);
     //print the value of the script "Ingredient" to the console
     Ingredient ingredient = instance.GetComponent<Ingredient>();
+
+    //log the ingredient name to the console
+    Debug.Log("Ingredient namec(spawner): " + ingredient.ingredientName);
+
     return instance;
 }
 

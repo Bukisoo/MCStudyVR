@@ -53,6 +53,11 @@ private void OnGrabbed(SelectEnterEventArgs arg)
 
             // Set the collider's isTrigger property to true when grabbed by left hand
             SetColliderTriggerStatus(true);
+
+            //log the value of the script "Ingredient" to the console of the ingredient that is grabbed
+            Ingredient ingredient = GetComponent<Ingredient>();
+            Debug.Log("Ingredient name: (merger)" + ingredient.ingredientName);
+
         }
     }
 
@@ -147,17 +152,11 @@ private void OnGrabbed(SelectEnterEventArgs arg)
 
         //UpdateTriggerColliderSize();
 
-        //list of all the ingredients in the burger, you can get the ingredient name by using ingredient.ingredientName on each ingredient
+        //list of all the ingredients in the burger, you can get the ingredient name by using ingredient.ingredientName on each prefab
         //print the value of the script "Ingredient" to the console
         Ingredient ingredient = newChild.GetComponent<Ingredient>();
-        if (ingredient != null)
-        {
-            Debug.Log("Ingredient: " + ingredient.ingredientName);
-        }
-        else
-        {
-            Debug.Log("No ingredient script found on " + newChild.name);
-        }
+        Debug.Log("Ingredient name: " + ingredient.ingredientName);
+
         
     }
 
