@@ -21,10 +21,8 @@ public class GoingForward : MonoBehaviour
     {
         new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Cheese", "Steak", "Bottom Bun" } },
         new Order { ingredients = new List<string> { "Top Bun", "Cheese", "Steak", "Cheese", "Bottom Bun" } },
-        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Lettuce", "Bottom Bun" } }
-        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Cheese", "Cooked Steak", "Bottom Bun" } },
-        new Order { ingredients = new List<string> { "Top Bun", "Cheese", "Cooked Steak", "Cheese", "Bottom Bun" } },
-        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Lettuce", "Cooked Steak", "Bottom Bun" } }
+        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Steak", "Bottom Bun" } }
+
     };
 
     private Order currentOrder;
@@ -63,43 +61,52 @@ public class GoingForward : MonoBehaviour
         {
             Drive = false;
         }
-        else if (other.gameObject.tag == "Ingredient")
+        //else if tag == "Ingredient" and is the parent of the burger (has children)
+        else if (other.gameObject.tag == "Ingredient" && other.gameObject.transform.childCount > 0)
         {
             EvaluateBurger(other.gameObject);
         }
     }
+void EvaluateBurger(GameObject burger)
+{
+    List<string> burgerIngredients = new List<string>();
 
-    void EvaluateBurger(GameObject burger)
+    // Check if the burger itself has an Ingredient component
+    Ingredient burgerIngredient = burger.GetComponent<Ingredient>();
+    if (burgerIngredient != null)
     {
-        List<string> burgerIngredients = new List<string>();
-        Ingredient burgerIngredient = burger.GetComponent<Ingredient>();
-        if (burgerIngredient != null)
-        {
-            burgerIngredients.Add(burgerIngredient.ingredientName);
-        }
+        burgerIngredients.Add(burgerIngredient.ingredientName);
+    }
 
-        foreach (Transform child in burger.transform)
+    // Iterate through each child and add their ingredient names
+    foreach (Transform child in burger.transform)
+    {
+        Ingredient ingredient = child.GetComponent<Ingredient>();
+        if (ingredient != null)
         {
-            Ingredient ingredient = child.GetComponent<Ingredient>();
-            if (ingredient != null)
-            {
-                burgerIngredients.Add(ingredient.ingredientName);
-            }
-        }
-
-        string burgerComposition = "Burger composition: " + string.Join(", ", burgerIngredients);
-        Debug.Log(burgerComposition);
-
-        if (IsOrderCorrect(burgerIngredients, currentOrder))
-        {
-            Debug.Log("Burger accepted. Composition matches the order.");
-            Drive = true;
-        }
-        else
-        {
-            Debug.Log("Burger rejected. Composition does not match the order.");
+            burgerIngredients.Add(ingredient.ingredientName);
         }
     }
+
+    // Remove duplicate ingredient names
+    //burgerIngredients = new HashSet<string>(burgerIngredients).ToList();
+
+    // Create a string to represent the burger composition
+    string burgerComposition = "Burger Composition: " + string.Join(", ", burgerIngredients);
+    Debug.Log(burgerComposition);
+
+    // Check if the burger's ingredients match the current order
+    if (IsOrderCorrect(burgerIngredients, currentOrder))
+    {
+        Debug.Log("Burger accepted. Composition matches the order.");
+        Drive = true;
+    }
+    else
+    {
+        Debug.Log("Burger rejected. Composition does not match the order.");
+    }
+}
+
 
     private bool IsOrderCorrect(List<string> burgerIngredients, Order order)
     {
