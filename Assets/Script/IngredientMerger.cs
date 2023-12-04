@@ -146,6 +146,19 @@ private void OnGrabbed(SelectEnterEventArgs arg)
         //Debug.Log(newChild.name + " instantiated and set as child of " + parent.gameObject.name, this);
 
         //UpdateTriggerColliderSize();
+
+        //list of all the ingredients in the burger, you can get the ingredient name by using ingredient.ingredientName on each ingredient
+        //print the value of the script "Ingredient" to the console
+        Ingredient ingredient = newChild.GetComponent<Ingredient>();
+        if (ingredient != null)
+        {
+            Debug.Log("Ingredient: " + ingredient.ingredientName);
+        }
+        else
+        {
+            Debug.Log("No ingredient script found on " + newChild.name);
+        }
+        
     }
 
     private void UpdateTriggerColliderSize()

@@ -79,30 +79,40 @@ void EvaluateBurger(GameObject burger)
 {
     List<string> burgerIngredients = new List<string>();
 
+    Debug.Log("Evaluating burger: " + burger.name);
+
     foreach (Transform child in burger.transform)
     {
+        Debug.Log("Checking child: " + child.gameObject.name);
+
         Ingredient ingredient = child.GetComponent<Ingredient>();
         if (ingredient != null)
         {
+            Debug.Log("Found ingredient: " + ingredient.ingredientName);
             burgerIngredients.Add(ingredient.ingredientName);
         }
+        else
+        {
+            Debug.Log("No Ingredient component found on " + child.gameObject.name);
+        }
     }
-    
 
     // Display burger composition in the console
-    Debug.Log("Burger Composition: " + string.Join(", ", burgerIngredients));
+    string burgerComposition = string.Join(", ", burgerIngredients);
+    Debug.Log("Burger Composition: " + burgerComposition);
 
     if (IsOrderCorrect(burgerIngredients, currentOrder))
     {
-        Debug.Log("Burger accepted.");
+        Debug.Log("Burger accepted. Composition matches the order.");
         Drive = true; // Resume driving
     }
     else
     {
-        Debug.Log("Burger rejected.");
+        Debug.Log("Burger rejected. Composition does not match the order.");
         // Additional logic for rejected burger
     }
 }
+
 
     // Check if the burger's ingredients match the current order (regardless of order)
     private bool IsOrderCorrect(List<string> burgerIngredients, Order order)

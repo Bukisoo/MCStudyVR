@@ -27,9 +27,9 @@ void HandleLog(string logString, string stackTrace, LogType type)
     {
         this.logString = logString + "\n" + this.logString;
 
-        if (this.logString.Length > 10000) // Example limit
+        if (this.logString.Length > 15) // Example limit
         {
-            this.logString = this.logString.Substring(0, 10000);
+            this.logString = this.logString.Substring(0, 15);
         }
 
         if (debugText != null)
