@@ -4160,6 +4160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  score: 0
   orderDisplay: {fileID: 1026053784}
 --- !u!4 &537288317 stripped
 Transform:

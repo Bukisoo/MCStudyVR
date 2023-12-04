@@ -9,6 +9,7 @@ public class GoingForward : MonoBehaviour
     private float originalX;
     private float originalY;
     private float originalZ;
+    public int score = 0;
     private bool Drive = true;
 
     // Define an order structure
@@ -22,7 +23,7 @@ public class GoingForward : MonoBehaviour
     {
         new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Cheese", "Cooked Steak", "Bottom Bun" } },
         new Order { ingredients = new List<string> { "Top Bun", "Cheese", "Cooked Steak", "Cheese", "Bottom Bun" } },
-        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Lettuce", "Bottom Bun" } }
+        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Lettuce", "Cooked Steak", "Bottom Bun" } }
     };
 
     // Current order
@@ -63,6 +64,7 @@ public class GoingForward : MonoBehaviour
         {
             Debug.Log("Car Reset");
             transform.position = new Vector3(originalX, originalY, originalZ);
+            score++;
         }
         else if (other.gameObject.tag == "Drive")
         {
