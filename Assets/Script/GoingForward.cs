@@ -22,7 +22,7 @@ public class GoingForward : MonoBehaviour
     {
         new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Cheese", "Cooked Steak", "Bottom Bun" } },
         new Order { ingredients = new List<string> { "Top Bun", "Cheese", "Cooked Steak", "Cheese", "Bottom Bun" } },
-        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Salad", "Bottom Bun" } }
+        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Lettuce", "Bottom Bun" } }
     };
 
     // Current order
@@ -81,12 +81,15 @@ void EvaluateBurger(GameObject burger)
 
     foreach (Transform child in burger.transform)
     {
-        // Check if the child is not the same as the parent
-        if (child.gameObject != burger)
+        Ingredient ingredient = child.GetComponent<Ingredient>();
+        if (ingredient != null)
         {
-            burgerIngredients.Add(child.gameObject.name);
+            burgerIngredients.Add(ingredient.ingredientName);
         }
     }
+
+    Debug.Log("Burger Composition: " + string.Join(", ", burgerIngredients));
+    
 
     // Display burger composition in the console
     Debug.Log("Burger Composition: " + string.Join(", ", burgerIngredients));
