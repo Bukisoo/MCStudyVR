@@ -11,24 +11,19 @@ public class GoingForward : MonoBehaviour
     private float originalZ;
     private bool Drive = true;
 
-    // Define an order structure
     private struct Order
     {
         public List<string> ingredients;
     }
 
-    // List of possible orders
     private List<Order> possibleOrders = new List<Order>()
     {
-        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Cheese", "Cooked Steak", "Bottom Bun" } },
-        new Order { ingredients = new List<string> { "Top Bun", "Cheese", "Cooked Steak", "Cheese", "Bottom Bun" } },
+        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Cheese", "Steak", "Bottom Bun" } },
+        new Order { ingredients = new List<string> { "Top Bun", "Cheese", "Steak", "Cheese", "Bottom Bun" } },
         new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Lettuce", "Bottom Bun" } }
     };
 
-    // Current order
     private Order currentOrder;
-
-    // Public TextMeshPro - Test (UI) for displaying the order
     public TextMeshProUGUI orderDisplay;
 
     void Start()
@@ -36,11 +31,7 @@ public class GoingForward : MonoBehaviour
         originalX = transform.position.x;
         originalY = transform.position.y;
         originalZ = transform.position.z;
-
-        // Select a random order
         currentOrder = possibleOrders[Random.Range(0, possibleOrders.Count)];
-
-        // Display the current order
         DisplayCurrentOrder();
     }
 
@@ -61,7 +52,6 @@ public class GoingForward : MonoBehaviour
     {
         if (other.gameObject.tag == "resetCar")
         {
-            Debug.Log("Car Reset");
             transform.position = new Vector3(originalX, originalY, originalZ);
         }
         else if (other.gameObject.tag == "Drive")
@@ -74,60 +64,38 @@ public class GoingForward : MonoBehaviour
         }
     }
 
-    // Evaluate the received burger
-void EvaluateBurger(GameObject burger)
-{
-    List<string> burgerIngredients = new List<string>();
-
-    Debug.Log("Evaluating burger: " + burger.name);
-
-    // Include the parent GameObject (burger itself) in the ingredients list
-    Ingredient burgerIngredient = burger.GetComponent<Ingredient>();
-    if (burgerIngredient != null)
+    void EvaluateBurger(GameObject burger)
     {
-        Debug.Log("Found ingredient: " + burgerIngredient.ingredientName);
-        burgerIngredients.Add(burgerIngredient.ingredientName);
-    }
-    else
-    {
-        Debug.Log("No Ingredient component found on " + burger.name);
-    }
-
-    foreach (Transform child in burger.transform)
-    {
-        Debug.Log("Checking child: " + child.gameObject.name);
-
-        Ingredient ingredient = child.GetComponent<Ingredient>();
-        if (ingredient != null)
+        List<string> burgerIngredients = new List<string>();
+        Ingredient burgerIngredient = burger.GetComponent<Ingredient>();
+        if (burgerIngredient != null)
         {
-            Debug.Log("Found ingredient: FORWARD" + ingredient.ingredientName);
-            burgerIngredients.Add(ingredient.ingredientName);
+            burgerIngredients.Add(burgerIngredient.ingredientName);
+        }
+
+        foreach (Transform child in burger.transform)
+        {
+            Ingredient ingredient = child.GetComponent<Ingredient>();
+            if (ingredient != null)
+            {
+                burgerIngredients.Add(ingredient.ingredientName);
+            }
+        }
+
+        string burgerComposition = "Burger composition: " + string.Join(", ", burgerIngredients);
+        Debug.Log(burgerComposition);
+
+        if (IsOrderCorrect(burgerIngredients, currentOrder))
+        {
+            Debug.Log("Burger accepted. Composition matches the order.");
+            Drive = true;
         }
         else
         {
-            Debug.Log("No Ingredient component found on " + child.gameObject.name);
+            Debug.Log("Burger rejected. Composition does not match the order.");
         }
     }
 
-    // Display burger composition in the console
-    string burgerComposition = string.Join(", ", burgerIngredients);
-    Debug.Log("Burger Composition: " + burgerComposition);
-
-    if (IsOrderCorrect(burgerIngredients, currentOrder))
-    {
-        Debug.Log("Burger accepted. Composition matches the order.");
-        Drive = true; // Resume driving
-    }
-    else
-    {
-        Debug.Log("Burger rejected. Composition does not match the order.");
-        // Additional logic for rejected burger
-    }
-}
-
-
-
-    // Check if the burger's ingredients match the current order (regardless of order)
     private bool IsOrderCorrect(List<string> burgerIngredients, Order order)
     {
         foreach (string ingredient in order.ingredients)
@@ -135,19 +103,16 @@ void EvaluateBurger(GameObject burger)
             if (!burgerIngredients.Contains(ingredient))
                 return false;
         }
-
         return true;
     }
 
-    // Display the current order on the TextMesh
     private void DisplayCurrentOrder()
     {
-        string orderText = "Order: ";
+        //print the value of the script "Ingredient" to the textmeshpro one per line
+        orderDisplay.text = "Order: \n";
         foreach (string ingredient in currentOrder.ingredients)
         {
-            orderText += "\n" + ingredient;
+            orderDisplay.text += ingredient + "\n";
         }
-
-        orderDisplay.text = orderText;
     }
 }
