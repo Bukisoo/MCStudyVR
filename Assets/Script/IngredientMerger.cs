@@ -15,6 +15,8 @@ public class IngredientMerger : MonoBehaviour
     private float yOffset = 0.1f;
     private float initialOffset = 0.1f; // Adjust this value to set the initial offset
 
+    private BoxCollider triggerCollider;
+
     private void Awake()
     {
         currentPileHeight = initialOffset;
@@ -27,6 +29,11 @@ public class IngredientMerger : MonoBehaviour
 
         grabInteractable.selectEntered.AddListener(OnGrabbed);
         grabInteractable.selectExited.AddListener(OnReleased);
+
+        // Add a secondary trigger collider
+        triggerCollider = gameObject.AddComponent<BoxCollider>();
+        triggerCollider.isTrigger = true;
+        UpdateTriggerColliderSize();
     }
 
 // Update method using the new Input System
@@ -78,7 +85,6 @@ private void OnGrabbed(SelectEnterEventArgs arg)
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(gameObject.name + "triggered", this);
         if (other.CompareTag("Ingredient") && ( grabInteractable.isSelected))
         {
             IngredientMerger otherIngredient = other.GetComponent<IngredientMerger>();
@@ -139,17 +145,18 @@ private void OnGrabbed(SelectEnterEventArgs arg)
         Destroy(child.gameObject);
         Debug.Log(newChild.name + " instantiated and set as child of " + parent.gameObject.name, this);
 
-        //UpdateColliderSize(parent);
+        //UpdateTriggerColliderSize();
     }
 
-    private void UpdateColliderSize(IngredientMerger parent)
+    private void UpdateTriggerColliderSize()
     {
-        BoxCollider parentCollider = parent.GetComponent<BoxCollider>();
-        if (parentCollider != null)
+        if (triggerCollider != null)
         {
-            float newColliderHeight = currentPileHeight;
-            parentCollider.size = new Vector3(parentCollider.size.x, newColliderHeight, parentCollider.size.z);
-            parentCollider.center = new Vector3(parentCollider.center.x, newColliderHeight / 2, parentCollider.center.z);
+            // Adjust the size and position of the trigger collider as needed
+            // Here, I'm just using an example. You should set this according to your requirements.
+            triggerCollider.size = new Vector3(1, 1, 1);
+            triggerCollider.center = new Vector3(0, 0, 0);
         }
     }
+
 }

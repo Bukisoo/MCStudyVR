@@ -75,26 +75,29 @@ public class GoingForward : MonoBehaviour
     }
 
     // Evaluate the received burger
-    void EvaluateBurger(GameObject burger)
+void EvaluateBurger(GameObject burger)
+{
+    List<string> burgerIngredients = new List<string>();
+
+    foreach (Transform child in burger.transform)
     {
-        List<string> burgerIngredients = new List<string>();
-
-        foreach (Transform child in burger.transform)
-        {
-            burgerIngredients.Add(child.gameObject.name);
-        }
-
-        if (IsOrderCorrect(burgerIngredients, currentOrder))
-        {
-            Debug.Log("Burger accepted.");
-            Drive = true; // Resume driving
-        }
-        else
-        {
-            Debug.Log("Burger rejected.");
-            // Additional logic for rejected burger
-        }
+        burgerIngredients.Add(child.gameObject.name);
     }
+
+    // Display burger composition in the console
+    Debug.Log("Burger Composition: " + string.Join(", ", burgerIngredients));
+
+    if (IsOrderCorrect(burgerIngredients, currentOrder))
+    {
+        Debug.Log("Burger accepted.");
+        Drive = true; // Resume driving
+    }
+    else
+    {
+        Debug.Log("Burger rejected.");
+        // Additional logic for rejected burger
+    }
+}
 
     // Check if the burger's ingredients match the current order (regardless of order)
     private bool IsOrderCorrect(List<string> burgerIngredients, Order order)
