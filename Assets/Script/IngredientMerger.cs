@@ -110,67 +110,74 @@ private void OnTriggerEnter(Collider other)
     }
 
 }
-
-
-  private void MakeChildOf(IngredientMerger child, IngredientMerger parent)
+ private void MakeChildOf(IngredientMerger child, IngredientMerger parent)
 {
     string prefabPath = "Prefabs/" + child.gameObject.name;
     GameObject prefab = Resources.Load<GameObject>(prefabPath);
     if (prefab == null)
     {
-        Debug.LogError("No prefab found for path: " + prefabPath);
+        //Debug.LogError("No prefab found for path: " + prefabPath);
         return;
     }
 
     GameObject newChild = Instantiate(prefab, parent.transform);
     newChild.name = prefab.name;
 
-    Debug.Log("Instantiated new child: " + newChild.name);
-
+    // Set the correct state for the steak
+    Ingredient childIngredient = child.GetComponent<Ingredient>();
     Ingredient newChildIngredient = newChild.GetComponent<Ingredient>();
-    if (newChildIngredient == null)
+    Renderer steakRenderer = newChild.GetComponent<Renderer>(); // Get the Renderer component
+    if (childIngredient != null && newChildIngredient != null && childIngredient.ingredientName.Contains("Steak"))
     {
-        Debug.LogError("Prefab Instantiation Issue: The instantiated object does not have the Ingredient component. Prefab name: " + newChild.name);
+        newChildIngredient.ingredientName = childIngredient.ingredientName; // Set the state of the new steak
+        Debug.Log("New steak state set to: " + newChildIngredient.ingredientName);
+
+        // Change the steak texture based on its state
+        if (newChildIngredient.ingredientName == "Steak")
+        {
+            steakRenderer.material.mainTexture = Resources.Load<Texture>("Materials/SteakCuit");
+            Debug.Log("Steak texture changed to: " + steakRenderer.material.mainTexture);
+        }
+        else if (newChildIngredient.ingredientName == "Overcooked Steak")
+        {
+            steakRenderer.material.mainTexture = Resources.Load<Texture>("Materials/SteakCrame");
+            Debug.Log("Steak texture changed to: " + steakRenderer.material.mainTexture);
+        }
     }
-    else
+
+    Vector3 originalScale = child.transform.localScale;
+    Vector3 inverseParentScale = new Vector3(1 / parent.transform.localScale.x, 1 / parent.transform.localScale.y, 1 / parent.transform.localScale.z);
+    newChild.transform.localScale = Vector3.Scale(originalScale, inverseParentScale);
+    newChild.transform.localPosition = new Vector3(0, currentPileHeight, 0);
+    newChild.transform.localRotation = Quaternion.identity;
+
+    currentPileHeight += yOffset;
+
+    Rigidbody rigidbody = newChild.GetComponent<Rigidbody>();
+    if (rigidbody != null)
     {
-        Debug.Log("Instantiated new ingredient: " + newChildIngredient.ingredientName);
+        rigidbody.isKinematic = true;
     }
 
-        Vector3 originalScale = child.transform.localScale;
-        Vector3 inverseParentScale = new Vector3(1 / parent.transform.localScale.x, 1 / parent.transform.localScale.y, 1 / parent.transform.localScale.z);
-        newChild.transform.localScale = Vector3.Scale(originalScale, inverseParentScale);
-        newChild.transform.localPosition = new Vector3(0, currentPileHeight, 0);
-        newChild.transform.localRotation = Quaternion.identity;
-
-        currentPileHeight += yOffset;
-
-        Rigidbody rigidbody = newChild.GetComponent<Rigidbody>();
-        if (rigidbody != null)
-        {
-            rigidbody.isKinematic = true;
-        }
-
-        XRGrabInteractable grabInteractable = newChild.GetComponent<XRGrabInteractable>();
-        if (grabInteractable != null)
-        {
-            grabInteractable.enabled = false;
-        }
-
-        BoxCollider boxCollider = newChild.GetComponent<BoxCollider>();
-        if (boxCollider != null)
-        {
-            Destroy(boxCollider);
-        }
-
-        Destroy(child.gameObject);
-
-        // After merging, log the composition of the burger
-        LogBurgerComposition(parent.gameObject);
-
-        UpdateTriggerColliderSize();
-
+    XRGrabInteractable grabInteractable = newChild.GetComponent<XRGrabInteractable>();
+    if (grabInteractable != null)
+    {
+        grabInteractable.enabled = false;
     }
+
+    BoxCollider boxCollider = newChild.GetComponent<BoxCollider>();
+    if (boxCollider != null)
+    {
+        Destroy(boxCollider);
+    }
+
+    Destroy(child.gameObject);
+
+    LogBurgerComposition(parent.gameObject);
+
+    UpdateTriggerColliderSize();
+}
+
 
     private void UpdateTriggerColliderSize()
     {
@@ -207,10 +214,10 @@ private void OnTriggerEnter(Collider other)
 
         foreach (var pair in ingredientCounts)
         {
-            Debug.Log("Ingredient: " + pair.Key + ", Quantity: " + pair.Value);
+            //Debug.Log("Ingredient: " + pair.Key + ", Quantity: " + pair.Value);
         }
 
-        Debug.Log("Total number of ingredients (including parent and children): " + ingredients.Count);
+        //Debug.Log("Total number of ingredients (including parent and children): " + ingredients.Count);
     }
 
     private void CollectIngredients(Transform transform, ref List<string> ingredients)
@@ -219,11 +226,11 @@ private void OnTriggerEnter(Collider other)
         if (ingredient != null)
         {
             ingredients.Add(ingredient.ingredientName);
-            Debug.Log("Collected ingredient: " + ingredient.ingredientName);
+            //Debug.Log("Collected ingredient: " + ingredient.ingredientName);
         }
         else
         {
-            Debug.Log("No Ingredient component found on: " + transform.gameObject.name);
+            //Debug.Log("No Ingredient component found on: " + transform.gameObject.name);
         }
 
         // Recursively collect ingredients from all children

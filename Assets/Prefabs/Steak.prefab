@@ -4964,4 +4964,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d48a823b992279749a02da0a06bf268d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientName: Steak
+  ingredientName: Uncooked Steak

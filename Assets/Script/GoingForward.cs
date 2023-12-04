@@ -7,8 +7,10 @@ public class GoingForward : MonoBehaviour
 {
     public AudioSource SonicAudio;
     public TextMeshProUGUI scoreDisplay;
-    public AudioClip acceptSound;  // Audio clip for when a burger is accepted
-    public AudioClip rejectSound;  // Audio clip for when a burger is rejected
+
+    //add 2 more audio sources for accept and reject (don't use clip, use audiosource
+    public AudioClip acceptSound; // Accept sound
+    public AudioClip rejectSound; // Reject sound
     private AudioSource audioSource; // AudioSource component
 
     public float speed = 1.0f;
@@ -43,6 +45,7 @@ public class GoingForward : MonoBehaviour
         if (audioSource == null) { Debug.LogError("AudioSource component missing on the object."); }
 
         SonicAudio.gameObject.SetActive(false);
+    
         scoreDisplay.text = score.ToString();
         SelectNewOrder();
     }
@@ -65,8 +68,8 @@ public class GoingForward : MonoBehaviour
         if (other.gameObject.tag == "resetCar")
         {
             transform.position = new Vector3(originalX, originalY, originalZ);
-            score++;
-            scoreDisplay.text = score.ToString();
+            //score++;
+            //scoreDisplay.text = score.ToString();
         }
         else if (other.gameObject.tag == "Drive")
         {
@@ -107,21 +110,25 @@ public class GoingForward : MonoBehaviour
     Debug.Log(burgerComposition);
 
     // Check if the burger's ingredients match the current order
-        if (IsOrderCorrect(burgerIngredients, currentOrder))
-        {
-            Debug.Log("Burger accepted. Composition matches the order.");
-            Drive = true;
-            SonicAudio.gameObject.SetActive(false);
-            SelectNewOrder(); // Select a new order when the current one is accepted
-            audioSource.PlayOneShot(acceptSound); // Play accept sound
-        }
-        else
-        {
-            Debug.Log("Burger rejected. Composition does not match the order.");
-            score = 0; // Reset the score
-            scoreDisplay.text = score.ToString();
-            audioSource.PlayOneShot(rejectSound); // Play reject sound
-        }
+    if (IsOrderCorrect(burgerIngredients, currentOrder))
+    {
+        Debug.Log("Burger accepted. Composition matches the order.");
+        Drive = true;
+        SonicAudio.gameObject.SetActive(false);
+        SelectNewOrder(); // Select a new order when the current one is accepted
+       
+
+        score++; // Increment score
+        scoreDisplay.text = score.ToString(); // Update score display
+         audioSource.PlayOneShot(acceptSound); // Play accept sound
+    }
+    else
+    {
+        Debug.Log("Burger rejected. Composition does not match the order.");
+        score = 0; // Reset the score only if the burger is rejected
+        scoreDisplay.text = score.ToString(); // Update score display
+        audioSource.PlayOneShot(rejectSound); // Play reject sound
+    }
 }
     private bool IsOrderCorrect(List<string> burgerIngredients, Order order)
     {

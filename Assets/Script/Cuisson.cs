@@ -36,11 +36,20 @@ public class Cuisson : MonoBehaviour
             if(TempsCuisson>= 600 && TempsCuisson< 1800){
                 // Debug.Log("La viande est cuite");
                 this.GetComponent<Renderer>().material = MatCuit;
+                //change the name of the object to "Steak" in the script "Ingredient"
+                Ingredient ingredient = GetComponent<Ingredient>();
+                ingredient.ingredientName = "Steak";
+                Debug.Log(ingredient.ingredientName);
+                
             }
             if(TempsCuisson>= 1800){
                 // Debug.Log("La viande est cramé");
                 this.GetComponent<Renderer>().material = MatCrame;
                 this.GetComponent<ParticleSystemRenderer>().material = MatCrame;
+                //change the name of the object to "Overcooked Steak" in the script "Ingredient"
+                Ingredient ingredient = GetComponent<Ingredient>();
+                ingredient.ingredientName = "Overcooked Steak";
+                Debug.Log(ingredient.ingredientName);
             }
 
         }
