@@ -6,6 +6,10 @@ using TMPro;
 public class GoingForward : MonoBehaviour
 {
     public TextMeshProUGUI scoreDisplay;
+    public AudioClip acceptSound;  // Audio clip for when a burger is accepted
+    public AudioClip rejectSound;  // Audio clip for when a burger is rejected
+    private AudioSource audioSource; // AudioSource component
+
     public float speed = 1.0f;
     private float originalX;
     private float originalY;
@@ -33,6 +37,9 @@ public class GoingForward : MonoBehaviour
         originalX = transform.position.x;
         originalY = transform.position.y;
         originalZ = transform.position.z;
+
+        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
+        if (audioSource == null) { Debug.LogError("AudioSource component missing on the object."); }
 
         scoreDisplay.text = score.ToString();
         SelectNewOrder();
@@ -68,7 +75,6 @@ public class GoingForward : MonoBehaviour
             EvaluateBurger(other.gameObject);
         }
     }
-
     void EvaluateBurger(GameObject burger)
     {
     List<string> burgerIngredients = new List<string>();
@@ -98,15 +104,19 @@ public class GoingForward : MonoBehaviour
     Debug.Log(burgerComposition);
 
     // Check if the burger's ingredients match the current order
-    if (IsOrderCorrect(burgerIngredients, currentOrder))
+        if (IsOrderCorrect(burgerIngredients, currentOrder))
         {
             Debug.Log("Burger accepted. Composition matches the order.");
             Drive = true;
             SelectNewOrder(); // Select a new order when the current one is accepted
+            audioSource.PlayOneShot(acceptSound); // Play accept sound
         }
         else
         {
             Debug.Log("Burger rejected. Composition does not match the order.");
+            score = 0; // Reset the score
+            scoreDisplay.text = score.ToString();
+            audioSource.PlayOneShot(rejectSound); // Play reject sound
         }
 }
     private bool IsOrderCorrect(List<string> burgerIngredients, Order order)
@@ -118,7 +128,7 @@ public class GoingForward : MonoBehaviour
         }
         return true;
     }
-    
+
     private void SelectNewOrder()
     {
         currentOrder = possibleOrders[Random.Range(0, possibleOrders.Count)];
