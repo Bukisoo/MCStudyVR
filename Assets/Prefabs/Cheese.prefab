@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6323752230290585041}
   - component: {fileID: -3285944406074327720}
   - component: {fileID: 4562614155473482519}
+  - component: {fileID: 7072500181363526430}
   m_Layer: 0
   m_Name: Cheese
   m_TagString: Ingredient
@@ -124,3 +125,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7072500181363526430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3093567260967689405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d48a823b992279749a02da0a06bf268d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientName: Cheese
