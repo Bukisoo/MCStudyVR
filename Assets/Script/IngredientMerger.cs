@@ -12,10 +12,12 @@ public class IngredientMerger : MonoBehaviour
     private XRBaseInteractor leftHandInteractor;
     
     private float currentPileHeight = 0f;
-    private float yOffset = 0.3f;
+    private float yOffset = 0.1f;
+    private float initialOffset = 0.1f; // Adjust this value to set the initial offset
 
     private void Awake()
     {
+        currentPileHeight = initialOffset;
         grabInteractable = GetComponent<XRGrabInteractable>();
         if (grabInteractable == null)
         {
@@ -28,7 +30,7 @@ public class IngredientMerger : MonoBehaviour
     }
 
 // Update method using the new Input System
-    private void OnGrabbed(SelectEnterEventArgs arg)
+private void OnGrabbed(SelectEnterEventArgs arg)
     {
         Debug.Log("Grabbed by interactor with tag: " + arg.interactor.tag, this);
 
@@ -41,6 +43,9 @@ public class IngredientMerger : MonoBehaviour
         {
             leftHandInteractor = arg.interactor;
             Debug.Log(gameObject.name + " was grabbed by left hand", this);
+
+            // Set the collider's isTrigger property to true when grabbed by left hand
+            SetColliderTriggerStatus(true);
         }
     }
 
@@ -55,8 +60,21 @@ public class IngredientMerger : MonoBehaviour
         {
             leftHandInteractor = null;
             Debug.Log(gameObject.name + " was released by left hand", this);
+
+            // Revert the collider's isTrigger property to false when released by left hand
+            SetColliderTriggerStatus(false);
         }
     }
+
+    private void SetColliderTriggerStatus(bool isTrigger)
+    {
+        Collider collider = GetComponent<Collider>();
+        if (collider != null)
+        {
+            collider.isTrigger = isTrigger;
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
