@@ -5,6 +5,7 @@ using TMPro;
 
 public class GoingForward : MonoBehaviour
 {
+    public AudioSource SonicAudio;
     public TextMeshProUGUI scoreDisplay;
     public AudioClip acceptSound;  // Audio clip for when a burger is accepted
     public AudioClip rejectSound;  // Audio clip for when a burger is rejected
@@ -41,6 +42,7 @@ public class GoingForward : MonoBehaviour
         audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
         if (audioSource == null) { Debug.LogError("AudioSource component missing on the object."); }
 
+        SonicAudio.gameObject.SetActive(false);
         scoreDisplay.text = score.ToString();
         SelectNewOrder();
     }
@@ -69,6 +71,7 @@ public class GoingForward : MonoBehaviour
         else if (other.gameObject.tag == "Drive")
         {
             Drive = false;
+            SonicAudio.gameObject.SetActive(true);
         }
         else if (other.gameObject.tag == "Ingredient" && other.gameObject.transform.childCount > 0)
         {
@@ -108,6 +111,7 @@ public class GoingForward : MonoBehaviour
         {
             Debug.Log("Burger accepted. Composition matches the order.");
             Drive = true;
+            SonicAudio.gameObject.SetActive(false);
             SelectNewOrder(); // Select a new order when the current one is accepted
             audioSource.PlayOneShot(acceptSound); // Play accept sound
         }
