@@ -5,11 +5,12 @@ using TMPro;
 
 public class GoingForward : MonoBehaviour
 {
+    public TextMeshProUGUI scoreDisplay;
     public float speed = 1.0f;
     private float originalX;
     private float originalY;
     private float originalZ;
-    public int score = 0;
+    private int score = 0;
     private bool Drive = true;
 
     // Define an order structure
@@ -38,6 +39,8 @@ public class GoingForward : MonoBehaviour
         originalY = transform.position.y;
         originalZ = transform.position.z;
 
+        scoreDisplay.text = score.ToString();
+
         // Select a random order
         currentOrder = possibleOrders[Random.Range(0, possibleOrders.Count)];
 
@@ -65,6 +68,7 @@ public class GoingForward : MonoBehaviour
             Debug.Log("Car Reset");
             transform.position = new Vector3(originalX, originalY, originalZ);
             score++;
+            scoreDisplay.text = score.ToString();
         }
         else if (other.gameObject.tag == "Drive")
         {
