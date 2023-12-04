@@ -56,7 +56,7 @@ private void OnGrabbed(SelectEnterEventArgs arg)
 
             //log the value of the script "Ingredient" to the console of the ingredient that is grabbed
             Ingredient ingredient = GetComponent<Ingredient>();
-            Debug.Log("Ingredient name: (merger)" + ingredient.ingredientName);
+            //Debug.Log("Ingredient name: (merger)" + ingredient.ingredientName);
 
         }
     }
@@ -88,26 +88,28 @@ private void OnGrabbed(SelectEnterEventArgs arg)
     }
 
 
-    private void OnTriggerEnter(Collider other)
+private void OnTriggerEnter(Collider other)
+{
+    if (other.CompareTag("Ingredient") && grabInteractable.isSelected)
     {
-        if (other.CompareTag("Ingredient") && ( grabInteractable.isSelected))
+        IngredientMerger otherIngredient = other.GetComponent<IngredientMerger>();
+        if (otherIngredient != null && otherIngredient.grabInteractable.isSelected)
         {
-            IngredientMerger otherIngredient = other.GetComponent<IngredientMerger>();
-            if (otherIngredient != null && ( otherIngredient.grabInteractable.isSelected))
+            // If this object is grabbed by the left hand and the other object is grabbed by the right hand
+            if (leftHandInteractor != null && otherIngredient.rightHandInteractor != null)
             {
-                if (rightHandInteractor != null && otherIngredient.leftHandInteractor != null)
-                {
-                    //Debug.Log("Merging: " + gameObject.name + " (right hand) into " + other.gameObject.name + " (left hand)", this);
-                    MakeChildOf(this, otherIngredient);
-                }
-                else if (leftHandInteractor != null && otherIngredient.rightHandInteractor != null)
-                {
-                    //Debug.Log("Merging: " + other.gameObject.name + " (right hand) into " + gameObject.name + " (left hand)", this);
-                    MakeChildOf(otherIngredient, this);
-                }
+                MakeChildOf(otherIngredient, this);
+            }
+            // If this object is grabbed by the right hand and the other object is grabbed by the left hand
+            else if (rightHandInteractor != null && otherIngredient.leftHandInteractor != null)
+            {
+                MakeChildOf(this, otherIngredient);
             }
         }
     }
+
+}
+
 
     private void MakeChildOf(IngredientMerger child, IngredientMerger parent)
     {
@@ -150,12 +152,12 @@ private void OnGrabbed(SelectEnterEventArgs arg)
         Destroy(child.gameObject);
         //Debug.Log(newChild.name + " instantiated and set as child of " + parent.gameObject.name, this);
 
-        //UpdateTriggerColliderSize();
+        UpdateTriggerColliderSize();
 
         //list of all the ingredients in the burger, you can get the ingredient name by using ingredient.ingredientName on each prefab
         //print the value of the script "Ingredient" to the console
         Ingredient ingredient = newChild.GetComponent<Ingredient>();
-        Debug.Log("Ingredient name: " + ingredient.ingredientName);
+        //Debug.Log("Ingredient name: " + ingredient.ingredientName);
 
         
     }

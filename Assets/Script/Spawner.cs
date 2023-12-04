@@ -75,7 +75,7 @@ GameObject SpawnPrefab(GameObject parent)
     Ingredient ingredient = instance.GetComponent<Ingredient>();
 
     //log the ingredient name to the console
-    Debug.Log("Ingredient namec(spawner): " + ingredient.ingredientName);
+    //Debug.Log("Ingredient name(spawner): " + ingredient.ingredientName);
 
     return instance;
 }
