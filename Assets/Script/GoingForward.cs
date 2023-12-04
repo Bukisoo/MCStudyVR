@@ -83,6 +83,18 @@ void EvaluateBurger(GameObject burger)
 
     Debug.Log("Evaluating burger: " + burger.name);
 
+    // Include the parent GameObject (burger itself) in the ingredients list
+    Ingredient burgerIngredient = burger.GetComponent<Ingredient>();
+    if (burgerIngredient != null)
+    {
+        Debug.Log("Found ingredient: " + burgerIngredient.ingredientName);
+        burgerIngredients.Add(burgerIngredient.ingredientName);
+    }
+    else
+    {
+        Debug.Log("No Ingredient component found on " + burger.name);
+    }
+
     foreach (Transform child in burger.transform)
     {
         Debug.Log("Checking child: " + child.gameObject.name);
@@ -90,7 +102,7 @@ void EvaluateBurger(GameObject burger)
         Ingredient ingredient = child.GetComponent<Ingredient>();
         if (ingredient != null)
         {
-            Debug.Log("Found ingredient: " + ingredient.ingredientName);
+            Debug.Log("Found ingredient: FORWARD" + ingredient.ingredientName);
             burgerIngredients.Add(ingredient.ingredientName);
         }
         else
@@ -114,6 +126,7 @@ void EvaluateBurger(GameObject burger)
         // Additional logic for rejected burger
     }
 }
+
 
 
     // Check if the burger's ingredients match the current order (regardless of order)
