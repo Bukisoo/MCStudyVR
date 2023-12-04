@@ -23,7 +23,6 @@ public class GoingForward : MonoBehaviour
         new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Cheese", "Steak", "Bottom Bun" } },
         new Order { ingredients = new List<string> { "Top Bun", "Cheese", "Steak", "Cheese", "Bottom Bun" } },
         new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Steak", "Bottom Bun" } }
-
     };
 
     private Order currentOrder;
@@ -36,8 +35,7 @@ public class GoingForward : MonoBehaviour
         originalZ = transform.position.z;
 
         scoreDisplay.text = score.ToString();
-        currentOrder = possibleOrders[Random.Range(0, possibleOrders.Count)];
-        DisplayCurrentOrder();
+        SelectNewOrder();
     }
 
     void Update()
@@ -65,14 +63,14 @@ public class GoingForward : MonoBehaviour
         {
             Drive = false;
         }
-        //else if tag == "Ingredient" and is the parent of the burger (has children)
         else if (other.gameObject.tag == "Ingredient" && other.gameObject.transform.childCount > 0)
         {
             EvaluateBurger(other.gameObject);
         }
     }
-void EvaluateBurger(GameObject burger)
-{
+
+    void EvaluateBurger(GameObject burger)
+    {
     List<string> burgerIngredients = new List<string>();
 
     // Check if the burger itself has an Ingredient component
@@ -101,14 +99,15 @@ void EvaluateBurger(GameObject burger)
 
     // Check if the burger's ingredients match the current order
     if (IsOrderCorrect(burgerIngredients, currentOrder))
-    {
-        Debug.Log("Burger accepted. Composition matches the order.");
-        Drive = true;
-    }
-    else
-    {
-        Debug.Log("Burger rejected. Composition does not match the order.");
-    }
+        {
+            Debug.Log("Burger accepted. Composition matches the order.");
+            Drive = true;
+            SelectNewOrder(); // Select a new order when the current one is accepted
+        }
+        else
+        {
+            Debug.Log("Burger rejected. Composition does not match the order.");
+        }
 }
     private bool IsOrderCorrect(List<string> burgerIngredients, Order order)
     {
@@ -119,10 +118,15 @@ void EvaluateBurger(GameObject burger)
         }
         return true;
     }
+    
+    private void SelectNewOrder()
+    {
+        currentOrder = possibleOrders[Random.Range(0, possibleOrders.Count)];
+        DisplayCurrentOrder();
+    }
 
     private void DisplayCurrentOrder()
     {
-        //print the value of the script "Ingredient" to the textmeshpro one per line
         orderDisplay.text = "Order: \n";
         foreach (string ingredient in currentOrder.ingredients)
         {
