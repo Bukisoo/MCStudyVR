@@ -5,6 +5,7 @@ using TMPro;
 
 public class GoingForward : MonoBehaviour
 {
+    public AudioSource SonicAudio;
     public TextMeshProUGUI scoreDisplay;
     public float speed = 1.0f;
     private float originalX;
@@ -34,6 +35,7 @@ public class GoingForward : MonoBehaviour
         originalY = transform.position.y;
         originalZ = transform.position.z;
 
+        SonicAudio.gameObject.SetActive(false);
         scoreDisplay.text = score.ToString();
         SelectNewOrder();
     }
@@ -62,6 +64,7 @@ public class GoingForward : MonoBehaviour
         else if (other.gameObject.tag == "Drive")
         {
             Drive = false;
+            SonicAudio.gameObject.SetActive(true);
         }
         else if (other.gameObject.tag == "Ingredient" && other.gameObject.transform.childCount > 0)
         {
@@ -102,6 +105,7 @@ public class GoingForward : MonoBehaviour
         {
             Debug.Log("Burger accepted. Composition matches the order.");
             Drive = true;
+            SonicAudio.gameObject.SetActive(false);
             SelectNewOrder(); // Select a new order when the current one is accepted
         }
         else
