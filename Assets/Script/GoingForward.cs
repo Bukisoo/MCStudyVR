@@ -106,8 +106,6 @@ void EvaluateBurger(GameObject burger)
         Debug.Log("Burger rejected. Composition does not match the order.");
     }
 }
-
-
     private bool IsOrderCorrect(List<string> burgerIngredients, Order order)
     {
         foreach (string ingredient in order.ingredients)

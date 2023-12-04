@@ -1,7 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.InputSystem; // Import the new Input System namespace
-
+using UnityEngine.InputSystem;
 
 public class IngredientMerger : MonoBehaviour
 {
@@ -111,17 +112,30 @@ private void OnTriggerEnter(Collider other)
 }
 
 
-    private void MakeChildOf(IngredientMerger child, IngredientMerger parent)
+  private void MakeChildOf(IngredientMerger child, IngredientMerger parent)
+{
+    string prefabPath = "Prefabs/" + child.gameObject.name;
+    GameObject prefab = Resources.Load<GameObject>(prefabPath);
+    if (prefab == null)
     {
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/" + child.gameObject.name);
-        if (prefab == null)
-        {
-            Debug.LogError("No prefab found for name: " + child.gameObject.name + ". Path: Prefabs/" + child.gameObject.name, this);
-            return;
-        }
+        Debug.LogError("No prefab found for path: " + prefabPath);
+        return;
+    }
 
-        GameObject newChild = Instantiate(prefab, parent.transform);
-        newChild.name = prefab.name;
+    GameObject newChild = Instantiate(prefab, parent.transform);
+    newChild.name = prefab.name;
+
+    Debug.Log("Instantiated new child: " + newChild.name);
+
+    Ingredient newChildIngredient = newChild.GetComponent<Ingredient>();
+    if (newChildIngredient == null)
+    {
+        Debug.LogError("Prefab Instantiation Issue: The instantiated object does not have the Ingredient component. Prefab name: " + newChild.name);
+    }
+    else
+    {
+        Debug.Log("Instantiated new ingredient: " + newChildIngredient.ingredientName);
+    }
 
         Vector3 originalScale = child.transform.localScale;
         Vector3 inverseParentScale = new Vector3(1 / parent.transform.localScale.x, 1 / parent.transform.localScale.y, 1 / parent.transform.localScale.z);
@@ -150,16 +164,12 @@ private void OnTriggerEnter(Collider other)
         }
 
         Destroy(child.gameObject);
-        //Debug.Log(newChild.name + " instantiated and set as child of " + parent.gameObject.name, this);
+
+        // After merging, log the composition of the burger
+        LogBurgerComposition(parent.gameObject);
 
         UpdateTriggerColliderSize();
 
-        //list of all the ingredients in the burger, you can get the ingredient name by using ingredient.ingredientName on each prefab
-        //print the value of the script "Ingredient" to the console
-        Ingredient ingredient = newChild.GetComponent<Ingredient>();
-        //Debug.Log("Ingredient name: " + ingredient.ingredientName);
-
-        
     }
 
     private void UpdateTriggerColliderSize()
@@ -168,9 +178,60 @@ private void OnTriggerEnter(Collider other)
         {
             // Adjust the size and position of the trigger collider as needed
             // Here, I'm just using an example. You should set this according to your requirements.
-            triggerCollider.size = new Vector3(1, 1, 1);
-            triggerCollider.center = new Vector3(0, 0, 0);
+            triggerCollider.size = new Vector3(0.1f, currentPileHeight, 0.1f);
+            triggerCollider.center = new Vector3(0, currentPileHeight / 2, 0);
         }
     }
+
+ private void LogBurgerComposition(GameObject burger)
+    {
+        List<string> ingredients = new List<string>();
+        CollectIngredients(burger.transform, ref ingredients);
+
+        string composition = "Burger Composition after merge: " + string.Join(", ", ingredients);
+        Debug.Log(composition);
+
+        // Count unique ingredients and their quantities
+        var ingredientCounts = new Dictionary<string, int>();
+        foreach (var ing in ingredients)
+        {
+            if (ingredientCounts.ContainsKey(ing))
+            {
+                ingredientCounts[ing]++;
+            }
+            else
+            {
+                ingredientCounts[ing] = 1;
+            }
+        }
+
+        foreach (var pair in ingredientCounts)
+        {
+            Debug.Log("Ingredient: " + pair.Key + ", Quantity: " + pair.Value);
+        }
+
+        Debug.Log("Total number of ingredients (including parent and children): " + ingredients.Count);
+    }
+
+    private void CollectIngredients(Transform transform, ref List<string> ingredients)
+    {
+        Ingredient ingredient = transform.GetComponent<Ingredient>();
+        if (ingredient != null)
+        {
+            ingredients.Add(ingredient.ingredientName);
+            Debug.Log("Collected ingredient: " + ingredient.ingredientName);
+        }
+        else
+        {
+            Debug.Log("No Ingredient component found on: " + transform.gameObject.name);
+        }
+
+        // Recursively collect ingredients from all children
+        foreach (Transform child in transform)
+        {
+            CollectIngredients(child, ref ingredients);
+        }
+    }
+
 
 }
