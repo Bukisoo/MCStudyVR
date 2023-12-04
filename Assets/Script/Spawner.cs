@@ -71,7 +71,16 @@ GameObject SpawnPrefab(GameObject parent)
         ingredientMerger = instance.AddComponent<IngredientMerger>();
     }
     //Debug.Log("Spawned prefab with XRGrabInteractable and collider", instance);
-
+    //print the value of the script "Ingredient" to the console
+    Ingredient ingredient = instance.GetComponent<Ingredient>();
+    if (ingredient != null)
+    {
+        Debug.Log("Ingredient: " + ingredient.ingredientName);
+    }
+    else
+    {
+        Debug.Log("No ingredient script found on " + instance.name);
+    }
     return instance;
 }
 

@@ -87,8 +87,6 @@ void EvaluateBurger(GameObject burger)
             burgerIngredients.Add(ingredient.ingredientName);
         }
     }
-
-    Debug.Log("Burger Composition: " + string.Join(", ", burgerIngredients));
     
 
     // Display burger composition in the console
