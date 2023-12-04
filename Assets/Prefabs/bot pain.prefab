@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5201403608618379529}
   m_Layer: 0
   m_Name: bot pain
-  m_TagString: BottomBun
+  m_TagString: Ingredient
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
