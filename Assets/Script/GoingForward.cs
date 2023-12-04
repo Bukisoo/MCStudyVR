@@ -9,6 +9,7 @@ public class GoingForward : MonoBehaviour
     private float originalX;
     private float originalY;
     private float originalZ;
+    public int score = 0;
     private bool Drive = true;
 
     private struct Order
@@ -21,6 +22,9 @@ public class GoingForward : MonoBehaviour
         new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Cheese", "Steak", "Bottom Bun" } },
         new Order { ingredients = new List<string> { "Top Bun", "Cheese", "Steak", "Cheese", "Bottom Bun" } },
         new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Lettuce", "Bottom Bun" } }
+        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Cheese", "Cooked Steak", "Bottom Bun" } },
+        new Order { ingredients = new List<string> { "Top Bun", "Cheese", "Cooked Steak", "Cheese", "Bottom Bun" } },
+        new Order { ingredients = new List<string> { "Top Bun", "Lettuce", "Tomato", "Lettuce", "Cooked Steak", "Bottom Bun" } }
     };
 
     private Order currentOrder;
@@ -53,6 +57,7 @@ public class GoingForward : MonoBehaviour
         if (other.gameObject.tag == "resetCar")
         {
             transform.position = new Vector3(originalX, originalY, originalZ);
+            score++;
         }
         else if (other.gameObject.tag == "Drive")
         {
