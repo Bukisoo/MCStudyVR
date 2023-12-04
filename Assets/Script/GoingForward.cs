@@ -5,11 +5,12 @@ using TMPro;
 
 public class GoingForward : MonoBehaviour
 {
+    public TextMeshProUGUI scoreDisplay;
     public float speed = 1.0f;
     private float originalX;
     private float originalY;
     private float originalZ;
-    public int score = 0;
+    private int score = 0;
     private bool Drive = true;
 
     private struct Order
@@ -33,6 +34,8 @@ public class GoingForward : MonoBehaviour
         originalX = transform.position.x;
         originalY = transform.position.y;
         originalZ = transform.position.z;
+
+        scoreDisplay.text = score.ToString();
         currentOrder = possibleOrders[Random.Range(0, possibleOrders.Count)];
         DisplayCurrentOrder();
     }
@@ -56,6 +59,7 @@ public class GoingForward : MonoBehaviour
         {
             transform.position = new Vector3(originalX, originalY, originalZ);
             score++;
+            scoreDisplay.text = score.ToString();
         }
         else if (other.gameObject.tag == "Drive")
         {
